@@ -1,0 +1,16 @@
+.links{
+  display: flex;
+    /* justify-content: space-between; */
+  gap: 2rem;
+
+  a {
+    font-style: normal;
+    text-decoration: none;
+    color: black;
+  }
+}
+
+.top-bar{
+  position: sticky;
+  top: 0;
+}
