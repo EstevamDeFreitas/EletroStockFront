@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class AccessService {
+export class LoginService {
 
-  constructor() { }
+constructor() { }
 
 }
