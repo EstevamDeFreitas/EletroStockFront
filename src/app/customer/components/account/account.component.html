@@ -2,10 +2,12 @@
   <h2>Minha Conta</h2>
   <div class="sides pt-4">
     <div class="link-display">
-      <a routerLink="" class="btn btn-lg">Geral</a>
-      <a routerLink="" class="btn btn-lg">Compras</a>
-      <a routerLink="" class="btn btn-lg">Cupons</a>
+      <a routerLink="./" class="btn btn-lg">Geral</a>
+      <a routerLink="./purchases" class="btn btn-lg">Compras</a>
+      <a routerLink="./cupons" class="btn btn-lg">Cupons</a>
     </div>
-    <div>Content</div>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
