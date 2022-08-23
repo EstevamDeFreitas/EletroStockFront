@@ -1,3 +1,5 @@
+import { AccessService } from './../../services/access/access.service';
+import { LoginDTO } from './../../models/loginDTO.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  login: LoginDTO = new LoginDTO();
+
+  constructor(private accessService: AccessService) { }
 
   ngOnInit(): void {
+ 
+  }
+
+  sendLogin() {
+    this.accessService.loginCustomer(this.login).subscribe();
   }
 
 }
