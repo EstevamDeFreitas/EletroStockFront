@@ -15,4 +15,14 @@ export class AccessService {
   loginCustomer(login: LoginDTO){
     return this.http.post<HttpResponse<any>>(this.API + '/login', login);
   }
+
+  //Valido para customer e user(administrativo)
+  static getUser() : string | null{
+    return localStorage.getItem('userId');
+  }
+
+  //Valido para customer e user(administrativo)
+  static setUser(userId : string){
+    localStorage.setItem('userId', userId);
+  }
 }
