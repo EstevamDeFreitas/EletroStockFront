@@ -7,16 +7,26 @@ import { LoginComponent } from './access/components/login/login.component';
 import { CreateAccountComponent } from './access/components/create-account/create-account.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AccountComponent } from './customer/components/account/account.component';
+import { DetailsComponent } from './customer/components/details/details.component';
+import { PurchasesComponent } from './customer/components/purchases/purchases.component';
+import { CuponsComponent } from './customer/components/cupons/cupons.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    CreateAccountComponent
+    CreateAccountComponent,
+    AccountComponent,
+    DetailsComponent,
+    PurchasesComponent,
+    CuponsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgbModule,
     FormsModule,
     HttpClientModule
   ],

@@ -3,9 +3,15 @@
     <div class="container">
       <!-- <img src="./../assets/EletroStock.svg"> -->
       <div class="links">
-        <a href="">Início</a>
-        <a href="">Meu Carrinho</a>
-        <a href="">Minha Conta</a>
+        <a class="btn" routerLink="">Início</a>
+        <a class="btn" routerLink="">Meu Carrinho</a>
+        <div ngbDropdown class="d-inline-block">
+          <button type="button" class="btn" id="dropdownBasic1" ngbDropdownToggle>Conta</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <a routerLink="/perfil" ngbDropdownItem>Perfil</a>
+            <a routerLink="/perfil" ngbDropdownItem>Sair</a>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
