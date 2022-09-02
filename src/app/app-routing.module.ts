@@ -1,3 +1,4 @@
+import { CreateAccountComponent } from './access/components/create-account/create-account.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './access/components/login/login.component';
@@ -8,10 +9,11 @@ import { PurchasesComponent } from './customer/components/purchases/purchases.co
 
 const routes: Routes = [
   {path:'login', component:LoginComponent},
+  {path:'create-account', component:CreateAccountComponent},
   {path:'perfil',component:AccountComponent,children:[
-    {path:'', component:DetailsComponent},
+    {path:'account-detail', component:DetailsComponent},
     {path:'purchases', component:PurchasesComponent},
-    {path:'cupons', component:CuponsComponent}
+    {path:'cupons', component:CuponsComponent},
   ]}
 ];
 

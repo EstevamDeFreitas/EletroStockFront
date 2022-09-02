@@ -1,4 +1,4 @@
-.links{
+.links {
   display: flex;
     /* justify-content: space-between; */
   gap: 2rem;
@@ -6,16 +6,37 @@
   a {
     font-style: normal;
     text-decoration: none;
-
+    // color: #FF4500;
+    color: #FFFAFA;
+    font-weight: 400;
+    // color: #E24B10
   }
+
+  a:hover {
+    color: #E24B10;
+  }
+
 }
 
-.top-bar{
+.dropdown-menu.show {
+  background-color: #696969;
+}
+
+.btn {
+  background-color: #363636;
+  color: #FFFAFA;
+  border: none;
+}
+
+.btn:hover {
+  color: #E24B10;
+}
+
+.top-bar {
   position: absolute;
   width: 100%;
   top: 0;
+  background-color: #363636 !important;
+  box-shadow: 0px 8px 1em #bbb;
 }
 
-.container {
-  
-}

@@ -1,16 +1,18 @@
-<div class="bg-white w-100 h-100 p-4">
-  <h2>Login</h2>
-  <div class="login-form">
-    <form>
+<div class="panel w-100 h-100 p-4">
+  <div>
+    <h2>Login</h2>
+  </div>
+  <div class="login-form" (onSubmit)="sendLogin()">
+    <form #logForm="ngForm">
       <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email</label>
-        <input [(ngModel)]="login.email" [ngModelOptions]="{standalone: true}"  type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+        <label for="email" class="form-label">Email</label>
+        <input [(ngModel)]="login.email" formControlName="email"  type="email" class="form-control" id="email" placeholder="email@email.com"  required email>
       </div>
       <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Senha</label>
-        <input [(ngModel)]="login.password" [ngModelOptions]="{standalone: true}" type="password" class="form-control" id="exampleInputPassword1" required>
+        <label for="password" class="form-label">Senha</label>
+        <input [(ngModel)]="login.password" formControlName="password" type="text" class="form-control" id="password" placeholder="password" required>
       </div>
-      <button (click)="sendLogin()" type="submit" class="btn btn-success w-100">Entrar</button>
+      <button type="submit" class="button button-orange">ENTRAR</button>
     </form>
   </div>
 </div>

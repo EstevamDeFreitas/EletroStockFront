@@ -1,1 +1,170 @@
-<p>create-account works!</p>
+<!-- CRIAR CONTA -->
+<div class="panel" *ngIf="step == 1">
+  <h2>Criar uma conta</h2>
+  <form [formGroup]="logForm" >
+    <div class="form-group">
+      <div>
+        <label for="e-mail" class="form-label">Email:</label>
+        <input
+          formControlName="email"
+          id="e-mail"
+          type="email"
+          class="form-control"
+          placeholder="email@email.com"
+          [ngClass]="logForm.controls['email'].errors &&
+                     logForm.controls['email'].touched ? 'invalid': ''"
+          required
+        />
+        <app-error-msg
+          [showError]="true"
+          [errorMsg]="'Email obrigatório e deve seguir o modelo meuemail@meudominion.com'"
+          *ngIf="logForm.controls['email'].errors &&
+                logForm.controls['email'].touched">
+        </app-error-msg>
+      </div>
+      <div>
+        <label for="senha" class="form-label">Senha:</label>
+        <input
+          formControlName="password"
+          id="senha"
+          type="text"
+          class="form-control"
+          placeholder="Criar Senha"
+          [ngClass]="logForm.controls['password'].errors &&
+                     logForm.controls['password'].touched ? 'invalid': ''"
+          required
+        />
+        <app-error-msg
+          [showError]="true"
+          [errorMsg]="'A senha deve ter entra 6 e 20 caratéres'"
+          *ngIf="logForm.controls['password'].errors &&
+                 logForm.controls['password'].touched">
+        </app-error-msg>
+      </div>
+      <div>
+        <label for="confirmPassword" class="form-label">Confirmar senha:</label>
+        <input
+          formControlName="confirmPassword"
+          id="confirmPassword"
+          class="form-control"
+          placeholder="Confirmar Senha"
+          [ngClass]="logForm.controls['confirmPassword'].errors &&
+                     logForm.controls['confirmPassword'].touched ? 'invalid': ''"
+          required
+        />
+        <app-error-msg
+          [showError]="true"
+          [errorMsg]="'As senhas estão diferentes'"
+          *ngIf="logForm.controls['confirmPassword'].errors &&
+                 logForm.controls['confirmPassword'].touched">
+        </app-error-msg>
+      </div>
+    </div>
+    <div class="mt-2">
+      <button [disabled]="!logForm.valid" (click)="logFormValidate(logForm)" type="submit" class="button button-orange">
+        Iniciar meu cadastro
+      </button>
+      <button (click)="redirectLogin()" class="button button-orange">Entrar com uma conta</button>
+    </div>
+  </form>
+</div>
+<!-- COMPLETE DADOS -->
+<div class="panel" *ngIf="step == 2">
+  <h2>Complete alguns dados</h2>
+  <form [formGroup]="custForm" >
+    <div class="form-grup">
+      <div>
+        <label for="name" class="form-label">Nome completo:</label>
+        <input
+          formControlName="name"
+          id="name"
+          type="text"
+          class="form-control"
+          placeholder="Fulano da silva.."
+          [ngClass]="custForm.controls['name'].errors &&
+                    custForm.controls['name'].touched ? 'invalid': ''"
+          required
+        />
+        <app-error-msg
+            [showError]="true"
+            [errorMsg]="'O nome nao pode conter numeros nem carectéres especiais'"
+            *ngIf="custForm.controls['name'].errors &&
+                  custForm.controls['name'].touched">
+        </app-error-msg>
+      </div>
+      <!-- <div class="two-inputs"> -->
+        <div>
+          <label for="gender" class="form-label">Gênero:</label>
+          <select
+            formControlName="gender"
+            id="gender"
+            type="text"
+            class="form-select"
+            placeholder="Selecione"
+            required
+          >
+            <option disbled selected value="">Selecione</option>
+            <option value="M">Masculino</option>
+            <option value="F">Feminino</option>
+          </select>
+          <app-error-msg
+              [showError]="true"
+              [errorMsg]="'Genero Necessário'"
+              *ngIf="custForm.controls['gender'].errors &&
+                    custForm.controls['gender'].touched">
+          </app-error-msg>
+        </div>
+        <div>
+          <label for="tel" class="form-label">Telefone:</label>
+          <input
+            formControlName="phoneNumber"
+            id="tel"
+            type="text"
+            class="form-control"
+            placeholder="(00)0 0000-0000"
+            [mask]="'(00)0 0000-0000'"
+          />
+        </div>
+      <!-- </div> -->
+      <div>
+        <label for="cpf" class="form-label">CPF:</label>
+        <input
+          formControlName="cpf"
+          id="cpf"
+          type="text"
+          class="form-control"
+          placeholder="000.000.000-00"
+          [mask]="'000.000.000-00'"
+          required
+        />
+        <app-error-msg
+            [showError]="true"
+            [errorMsg]="'CPF obrigatório'"
+            *ngIf="custForm.controls['cpf'].errors &&
+                  custForm.controls['cpf'].touched">
+        </app-error-msg>
+      </div>
+    </div>
+    <div>
+      <label for="date" class="form-label">Data de nascimento:</label>
+      <input
+        formControlName="birthDate"
+        id="date"
+        type="date"
+        class="form-control"
+        required
+      />
+      <app-error-msg
+          [showError]="true"
+          [errorMsg]="'Data de nascimento obrigatório'"
+          *ngIf="custForm.controls['birthDate'].errors &&
+                custForm.controls['birthDate'].touched">
+      </app-error-msg>
+    </div>
+    <div class="mt-2">
+      <button [disabled]="!custForm.valid" (click)="createAccount(custForm)" class="button button-orange">
+        Finalizar meu Cadastro
+      </button>
+    </div>
+  </form>
+</div>

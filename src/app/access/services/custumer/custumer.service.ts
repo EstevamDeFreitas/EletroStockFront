@@ -1,13 +1,13 @@
-import { environment } from './../../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { CustomerDTO } from './../../models/custumerDTO.model';
+import { CustomerDTO } from '../../models/custumerDTO.model';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class CostumerService {
+export class CustumerService {
 
   private readonly API = environment.API_URL + "/Customer";
   constructor(private http: HttpClient) { }

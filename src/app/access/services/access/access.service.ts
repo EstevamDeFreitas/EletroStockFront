@@ -8,7 +8,7 @@ import { LoginDTO } from '../../models/loginDTO.model';
 })
 export class AccessService {
 
-  private readonly API = environment.API_URL + '/access';
+  private readonly API = environment.API_URL + '/Access';
 
   constructor(private http: HttpClient) { }
 
