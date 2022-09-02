@@ -2,17 +2,17 @@
   <div>
     <h2>Login</h2>
   </div>
-  <div class="login-form" (onSubmit)="sendLogin()">
-    <form #logForm="ngForm">
+  <div class="login-form">
+    <form #logForm="ngForm" (ngSubmit)="sendLogin()">
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>
-        <input [(ngModel)]="login.email" formControlName="email"  type="email" class="form-control" id="email" placeholder="email@email.com"  required email>
+        <input [(ngModel)]="login.email" name="email" type="email" class="form-control" id="email" placeholder="email@email.com"  required email>
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Senha</label>
-        <input [(ngModel)]="login.password" formControlName="password" type="text" class="form-control" id="password" placeholder="password" required>
+        <input [(ngModel)]="login.password" name="password" type="text" class="form-control" id="password" placeholder="password" required>
       </div>
-      <button type="submit" class="button button-orange">ENTRAR</button>
+      <button type="submit" class="button button-orange" >ENTRAR</button>
     </form>
   </div>
 </div>
