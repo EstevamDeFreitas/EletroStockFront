@@ -15,7 +15,7 @@ export class CreateAccountComponent implements OnInit {
   custForm: FormGroup = new FormGroup({});
   customerDTO: CustomerDTO = new CustomerDTO();
   confirmPassword: string = "";
-  step = 1;
+  step = 2;
 
   constructor(private customerService: CustumerService, private formBuilder: FormBuilder,
               private router:Router) { }
@@ -36,7 +36,7 @@ export class CreateAccountComponent implements OnInit {
     });
 
     this.custForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]*[a-zA-Z]+[a-zA-Z0-9]*$')]],
+      name: ['', [Validators.required]],
       gender: ['', Validators.required],
       phoneNumber: ['', Validators.pattern('(([+][(]?[0-9]{1,3}[)]?)|([(]?[0-9]{4}[)]?))\s*[)]?[-\s\.]?[(]?[0-9]{1,3}[)]?([-\s\.]?[0-9]{3})([-\s\.]?[0-9]{3,4})')],
       cpf: ['', [Validators.required, Validators.pattern(/^[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}$/)]],
@@ -58,6 +58,7 @@ export class CreateAccountComponent implements OnInit {
     this.customerDTO.cpf = custForm.controls['cpf'].value;
     this.customerDTO.birthDate = custForm.controls['birthDate'].value;
     this.customerDTO.gender = custForm.controls['gender'].value;
+    console.log(this.customerDTO)
 
     this.customerService.createCustomer(this.customerDTO).subscribe(res => {
       this.redirectLogin();
