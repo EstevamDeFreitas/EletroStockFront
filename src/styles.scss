@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
+$color-orange:#E24B10;
+$color-green: #00967D;
+
 body {
   //background-color: #ddd !important;
   background: #f3f3f3;
@@ -64,14 +67,14 @@ input.invalid {
 
 .button:hover {
   transform: translate(-3px);
-  box-shadow: 0px 10px 20px #E24B10;
+  box-shadow: 0px 10px 20px $color-orange;
   outline: none;
   border:none;
 }
 
 .button:active {
   transform: translate(-1px);
-  box-shadow: 0 5px 10px #E24B10;
+  box-shadow: 0 5px 10px $color-orange;
   outline: none;
   border:none;
 }
@@ -79,11 +82,17 @@ input.invalid {
 .button-orange {
   width: 20rem;
   height: 40px;
-  background-color: #E24B10;
+  background-color: $color-orange;
   border-radius: 22px;
   outline: none;
   border:none;
   font-weight: 600;
+}
+
+.button{
+  &-green{
+    background-color: $color-green;
+  }
 }
 
 .button::after {
@@ -102,7 +111,7 @@ input.invalid {
 }
 
 .button-orange::after {
-  background-color: #E24B10;
+  background-color: $color-orange;
   outline: none;
   border:none;
 }
