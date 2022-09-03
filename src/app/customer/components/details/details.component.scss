@@ -1,0 +1,14 @@
+::ng-deep.form-control {
+  width: 35% !important;
+}
+
+::ng-deep.form-label {
+  width: 10% !important;
+}
+
+.row-input {
+  display: flex;
+  flex-direction: row;
+  column-gap: 1rem;
+  margin-top: 3vh;
+}

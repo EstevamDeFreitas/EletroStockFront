@@ -1,5 +1,54 @@
-<p>details works!</p>
 <div>
+  <form [formGroup]="formAccount">
+    <div class="">
+      <label for="name" class="form-label">Nome:</label>
+      <input
+        class="form-control"
+        id="name"
+        type="text"
+        formControlName="name"
+      />
+    </div>
+    <div class="">
+      <label for="phone" class="form-label">Telefone</label>
+      <input
+        class="form-control"
+        id="phone"
+        type="text"
+        formControlName="phone"
+        readonly
+      />
+    </div>
+    <div class="row-input">
+      <span for="birthDate" class="form-label">Data de nascimento: </span>
+      <p>{{formAccount.controls['birthDate'].value}}</p>
+    </div>
+    <div class="row-input">
+      <span for="cpf" class="form-label">CPF: </span>
+      <p>{{formAccount.controls['cpf'].value}}</p>
+      <!-- <input
+        class="form-control"
+        id="cpf"
+        type="text"
+        formControlName="cpf"
+        readonly
+      /> -->
+    </div>
+    <div class="row-input">
+      <label for="gender" class="form-label">Gênero: </label>
+      <p>{{formAccount.controls['gender'].value}}</p>
+      <!-- <input
+        class="form-control"
+        id="gender"
+        type="text"
+        formControlName="gender"
+        readonly
+      /> -->
+    </div>
+  </form>
+</div>
+
+<div class="mt-3">
   <div class="row">
     <h2 class="col">Endereços</h2>
     <button class="btn btn-lg col">Adicionar</button>
