@@ -3,7 +3,7 @@
   <h2>Criar uma conta</h2>
   <form [formGroup]="logForm" >
     <div class="form-group">
-      <div>
+      <div class="text">
         <label for="e-mail" class="form-label">Email:</label>
         <input
           formControlName="email"
@@ -22,7 +22,7 @@
                 logForm.controls['email'].touched">
         </app-error-msg>
       </div>
-      <div>
+      <div class="text">
         <label for="senha" class="form-label">Senha:</label>
         <input
           formControlName="password"
@@ -41,7 +41,7 @@
                  logForm.controls['password'].touched">
         </app-error-msg>
       </div>
-      <div>
+      <div class="text">
         <label for="confirmPassword" class="form-label">Confirmar senha:</label>
         <input
           formControlName="confirmPassword"
@@ -73,7 +73,7 @@
   <h2>Complete alguns dados</h2>
   <form [formGroup]="custForm" >
     <div class="form-grup">
-      <div>
+      <div class="text">
         <label for="name" class="form-label">Nome completo:</label>
         <input
           formControlName="name"
@@ -92,8 +92,8 @@
                   custForm.controls['name'].touched">
         </app-error-msg>
       </div>
-      <!-- <div class="two-inputs"> -->
-        <div>
+      <div class="two-inputs">
+        <div class="text">
           <label for="gender" class="form-label">Gênero:</label>
           <select
             formControlName="gender"
@@ -114,7 +114,7 @@
                     custForm.controls['gender'].touched">
           </app-error-msg>
         </div>
-        <div>
+        <div class="text">
           <label for="tel" class="form-label">Telefone:</label>
           <input
             formControlName="phoneNumber"
@@ -125,46 +125,48 @@
             [mask]="'(00)0 0000-0000'"
           />
         </div>
-      <!-- </div> -->
-      <div>
-        <label for="cpf" class="form-label">CPF:</label>
-        <input
-          formControlName="cpf"
-          id="cpf"
-          type="text"
-          class="form-control"
-          placeholder="000.000.000-00"
-          [mask]="'000.000.000-00'"
-          required
-        />
-        <app-error-msg
-            [showError]="true"
-            [errorMsg]="'CPF obrigatório'"
-            *ngIf="custForm.controls['cpf'].errors &&
-                  custForm.controls['cpf'].touched">
-        </app-error-msg>
       </div>
-    </div>
-    <div>
-      <label for="date" class="form-label">Data de nascimento:</label>
-      <input
-        formControlName="birthDate"
-        id="date"
-        type="date"
-        class="form-control"
-        required
-      />
-      <app-error-msg
-          [showError]="true"
-          [errorMsg]="'Data de nascimento obrigatório'"
-          *ngIf="custForm.controls['birthDate'].errors &&
-                custForm.controls['birthDate'].touched">
-      </app-error-msg>
-    </div>
-    <div class="mt-2">
-      <button [disabled]="!custForm.valid" (click)="createAccount(custForm)" class="button button-orange">
-        Finalizar meu Cadastro
-      </button>
+      <div class="two-inputs">
+        <div class="text">
+          <label for="cpf" class="form-label">CPF:</label>
+          <input
+            formControlName="cpf"
+            id="cpf"
+            type="text"
+            class="form-control"
+            placeholder="000.000.000-00"
+            [mask]="'000.000.000-00'"
+            required
+          />
+          <app-error-msg
+              [showError]="true"
+              [errorMsg]="'CPF obrigatório'"
+              *ngIf="custForm.controls['cpf'].errors &&
+                    custForm.controls['cpf'].touched">
+          </app-error-msg>
+        </div>
+        <div class="text">
+          <label for="date" class="form-label">Data de nascimento:</label>
+          <input
+            formControlName="birthDate"
+            id="date"
+            type="date"
+            class="form-control"
+            required
+          />
+          <app-error-msg
+              [showError]="true"
+              [errorMsg]="'Data de nascimento obrigatório'"
+              *ngIf="custForm.controls['birthDate'].errors &&
+                    custForm.controls['birthDate'].touched">
+          </app-error-msg>
+        </div>
+      </div>
+      <div class="mt-2">
+        <button [disabled]="!custForm.valid" (click)="createAccount(custForm)" class="button button-orange">
+          Finalizar meu Cadastro
+        </button>
+      </div>
     </div>
   </form>
 </div>

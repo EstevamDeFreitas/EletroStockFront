@@ -17,6 +17,7 @@ import { PurchasesComponent } from './customer/components/purchases/purchases.co
 import { CuponsComponent } from './customer/components/cupons/cupons.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CustomValidators } from './shared/custom-validators';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { CustomValidators } from './shared/custom-validators';
   providers: [
     HttpClientModule,
     CustomValidators,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })
