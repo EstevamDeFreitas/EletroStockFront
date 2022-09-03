@@ -31,4 +31,8 @@ export class CustumerService {
   deleteCustomer(email: string) {
     return this.http.delete<HttpResponse<string>>(this.API+ "/" + email);
   }
+
+  getCustomerDetail(){
+    return this.http.get<HttpResponse<CustomerDTO>>(this.API);
+  }
 }
