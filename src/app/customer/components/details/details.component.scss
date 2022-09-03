@@ -1,9 +1,18 @@
 ::ng-deep.form-control {
-  width: 35% !important;
+  width: 80% !important;
 }
 
 ::ng-deep.form-label {
-  width: 10% !important;
+  width: 30% !important;
+}
+
+.form-panel {
+  display: flex;
+
+}
+
+.form-section {
+  width: 50%;
 }
 
 .row-input {

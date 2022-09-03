@@ -1,50 +1,84 @@
 <div>
-  <form [formGroup]="formAccount">
-    <div class="">
-      <label for="name" class="form-label">Nome:</label>
-      <input
-        class="form-control"
-        id="name"
-        type="text"
-        formControlName="name"
-      />
-    </div>
-    <div class="">
-      <label for="phone" class="form-label">Telefone</label>
-      <input
-        class="form-control"
-        id="phone"
-        type="text"
-        formControlName="phone"
-        readonly
-      />
-    </div>
-    <div class="row-input">
-      <span for="birthDate" class="form-label">Data de nascimento: </span>
-      <p>{{formAccount.controls['birthDate'].value}}</p>
-    </div>
-    <div class="row-input">
-      <span for="cpf" class="form-label">CPF: </span>
-      <p>{{formAccount.controls['cpf'].value}}</p>
-      <!-- <input
-        class="form-control"
-        id="cpf"
-        type="text"
-        formControlName="cpf"
-        readonly
-      /> -->
-    </div>
-    <div class="row-input">
-      <label for="gender" class="form-label">Gênero: </label>
-      <p>{{formAccount.controls['gender'].value}}</p>
-      <!-- <input
-        class="form-control"
-        id="gender"
-        type="text"
-        formControlName="gender"
-        readonly
-      /> -->
-    </div>
+  <form [formGroup]="formAccount" class="form-panel">
+    <section class="form-section">
+      <div class="">
+        <label for="name" class="form-label">Nome:</label>
+        <input
+          class="form-control"
+          id="name"
+          type="text"
+          formControlName="name"
+        />
+      </div>
+      <div class="">
+        <label for="phone" class="form-label">Telefone</label>
+        <input
+          class="form-control"
+          id="phone"
+          type="text"
+          formControlName="phone"
+          readonly
+        />
+      </div>
+      <div class="row-input">
+        <span for="birthDate" class="form-label">Data de nascimento: </span>
+        <p>{{formAccount.controls['birthDate'].value}}</p>
+      </div>
+      <div class="row-input">
+        <span for="cpf" class="form-label">CPF: </span>
+        <p>{{formAccount.controls['cpf'].value}}</p>
+        <!-- <input
+          class="form-control"
+          id="cpf"
+          type="text"
+          formControlName="cpf"
+          readonly
+        /> -->
+      </div>
+      <div class="row-input">
+        <label for="gender" class="form-label">Gênero: </label>
+        <p>{{formAccount.controls['gender'].value}}</p>
+        <!-- <input
+          class="form-control"
+          id="gender"
+          type="text"
+          formControlName="gender"
+          readonly
+        /> -->
+      </div>
+    </section>
+
+    <section class="form-section">
+      <div class="">
+        <label for="password" class="form-label">Senha atual:</label>
+        <input
+          class="form-control"
+          id="password"
+          type="password"
+          formControlName="password"
+        />
+      </div>
+      <div class="">
+        <label for="newPassword" class="form-label">Nova sernha:</label>
+        <input
+          class="form-control"
+          id="newPassword"
+          type="password"
+          formControlName="newPassword"
+          readonly
+        />
+      </div>
+      <div class="">
+        <label for="confirmNewPassword" class="form-label">Repita a sernha:</label>
+        <input
+          class="form-control"
+          id="confirmNewPassword"
+          type="password"
+          formControlName="confirmNewPassword"
+          readonly
+        />
+      </div>
+    </section>
   </form>
 </div>
 
