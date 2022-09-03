@@ -11,7 +11,7 @@ const routes: Routes = [
   {path:'login', component:LoginComponent},
   {path:'create-account', component:CreateAccountComponent},
   {path:'perfil',component:AccountComponent,children:[
-    {path:'account-detail', component:DetailsComponent},
+    {path:'', component:DetailsComponent},
     {path:'purchases', component:PurchasesComponent},
     {path:'cupons', component:CuponsComponent},
   ]}

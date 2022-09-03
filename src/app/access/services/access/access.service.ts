@@ -13,7 +13,7 @@ export class AccessService {
   constructor(private http: HttpClient) { }
 
   loginCustomer(login: LoginDTO){
-    return this.http.post<HttpResponse<any>>(this.API + '/login', login);
+    return this.http.post<any>(this.API + '/login', login);
   }
 
   //Valido para customer e user(administrativo)
