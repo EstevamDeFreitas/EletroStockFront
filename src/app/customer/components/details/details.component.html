@@ -4,20 +4,21 @@
       <div class="">
         <label for="name" class="form-label">Nome:</label>
         <input
-          class="form-control"
+          class="form-control-plaintext"
           id="name"
           type="text"
           formControlName="name"
+          [readonly]="edit"
         />
       </div>
-      <div class="">
+      <div>
         <label for="phone" class="form-label">Telefone</label>
         <input
-          class="form-control"
+          class="form-control-plaintext"
           id="phone"
           type="text"
           formControlName="phone"
-          readonly
+          [readonly]="edit"
         />
       </div>
       <div class="row-input">
@@ -48,7 +49,7 @@
       </div>
     </section>
 
-    <section class="form-section">
+    <section *ngIf="editPassword" class="form-section">
       <div class="">
         <label for="password" class="form-label">Senha atual:</label>
         <input
