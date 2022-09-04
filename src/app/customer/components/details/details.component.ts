@@ -117,6 +117,8 @@ export class DetailsComponent implements OnInit {
 
       this.addressService.createAddress(newAddress).subscribe({
         next:(res)=>{
+          this.cancelAddressForm();
+          this.getCustomerInfo();
 
         },
         error:(err)=>{
