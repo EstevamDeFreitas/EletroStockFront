@@ -1,5 +1,6 @@
 import { AdressDTO } from "./adressDTO.model";
 import { CreditCardDTO } from "./creditCardDTO.model";
+import { CustomerAccountDTO } from "./customerAccount.model";
 
 export class CustomerDTO {
     public email: string;
@@ -14,6 +15,7 @@ export class CustomerDTO {
     public ranking: number;
     public creditCards : Array<CreditCardDTO>;
     public addresses : Array<AdressDTO>;
+    public customerAccount : CustomerAccountDTO;
 
     constructor() {
       this.email = '';
@@ -27,6 +29,7 @@ export class CustomerDTO {
       this.phoneNumber = 0;
       this.ranking = 0;
       this.creditCards = new Array<CreditCardDTO>();
-      this.addresses = new Array
+      this.addresses = new Array<AdressDTO>();
+      this.customerAccount = new CustomerAccountDTO();
     }
 }
