@@ -2,6 +2,7 @@ import { environment } from '../../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { CustomerDTO } from '../../models/custumerDTO.model';
+import { Response } from '../../models/response';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,9 @@ export class CustumerService {
 
   deleteCustomer(email: string) {
     return this.http.delete<HttpResponse<string>>(this.API+ "/" + email);
+  }
+
+  getCustomerDetail(){
+    return this.http.get<Response<CustomerDTO>>(this.API);
   }
 }

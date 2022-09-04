@@ -21,6 +21,8 @@ export class LoginComponent implements OnInit {
   sendLogin() {
     this.accessService.loginCustomer(this.login).subscribe(res => {
       AccessService.setUser(res.data);
+      console.log(AccessService.getUser());
+
       this.router.navigate(['']);
     });
   }

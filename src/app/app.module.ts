@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './access/components/login/login.component';
 import { CreateAccountComponent } from './access/components/create-account/create-account.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AccountComponent } from './customer/components/account/account.component';
 import { DetailsComponent } from './customer/components/details/details.component';
 import { PurchasesComponent } from './customer/components/purchases/purchases.component';
@@ -18,6 +18,7 @@ import { CuponsComponent } from './customer/components/cupons/cupons.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CustomValidators } from './shared/custom-validators';
 import { DatePipe } from '@angular/common';
+import { AccessInterceptor } from './access/services/access/access.interceptor';
 
 
 @NgModule({
@@ -44,7 +45,12 @@ import { DatePipe } from '@angular/common';
   providers: [
     HttpClientModule,
     CustomValidators,
-    DatePipe
+    DatePipe,
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass:AccessInterceptor,
+      multi:true
+    }
   ],
   bootstrap: [AppComponent]
 })
