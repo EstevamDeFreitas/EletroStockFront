@@ -1,3 +1,4 @@
+import { CustomerChangePasswordDTO } from 'src/app/access/models/customerChangePasswordDTO';
 import { environment } from '../../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
@@ -35,5 +36,9 @@ export class CustumerService {
 
   getCustomerDetail(){
     return this.http.get<Response<CustomerDTO>>(this.API);
+  }
+
+  changerPassowrd(customerChangePassword: CustomerChangePasswordDTO) {
+    return this.http.put<HttpResponse<any>>(this.API+ "/password", customerChangePassword)
   }
 }

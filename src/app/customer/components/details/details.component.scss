@@ -1,16 +1,20 @@
-.form-control {
-  width: 80% !important;
+
+.btn-position {
+  display: flex;
+  flex-direction: row-reverse;
+
+  button {
+    margin-right: 1rem;
+  }
 }
 
-.form-label {
-  width: 30% !important;
+.accont-panel {
+  display: flex;
+  width: 100%;
+  column-gap: 1rem;
 }
 
 .form-panel {
-  display: flex;
-}
-
-.form-section {
   width: 50%;
 }
 

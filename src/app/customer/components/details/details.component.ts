@@ -1,3 +1,4 @@
+import { ValidatorFn } from '@angular/forms';
 import { CustomValidators } from 'src/app/shared/custom-validators';
 import { CustomerDTO } from './../../../access/models/custumerDTO.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -8,6 +9,7 @@ import { CustumerService } from 'src/app/access/services/custumer/custumer.servi
 import { StateList } from 'src/app/shared/states';
 import { AccessService } from 'src/app/access/services/access/access.service';
 import { AddressService } from 'src/app/access/services/address/address.service';
+import { CustomerChangePasswordDTO } from 'src/app/access/models/customerChangePasswordDTO';
 
 @Component({
   selector: 'app-details',
@@ -17,9 +19,11 @@ import { AddressService } from 'src/app/access/services/address/address.service'
 export class DetailsComponent implements OnInit {
 
   formAccount: FormGroup = new FormGroup({});
+  formPassword: FormGroup = new FormGroup({});
   customer: CustomerDTO = new CustomerDTO();
-  edit: boolean = true;
-  editPassword: boolean = false;
+  customerPassword: CustomerChangePasswordDTO = new CustomerChangePasswordDTO();
+  isEdit: boolean = false;
+  isEditPassword: boolean = false;
 
   formAddress : FormGroup = new FormGroup({});
   isAddressEditing : boolean = false;
@@ -36,22 +40,31 @@ export class DetailsComponent implements OnInit {
 
   createForm() {
     this.formAccount = this.formbuilder.group({
-      //this.customer.name
-      name: ['xxXXX'],
+      name: [this.customer.name],
       phone: [this.customer.phoneNumber],
-      password: [this.customer.password],
       birthDate: [this.datePipe.transform(this.customer.birthDate, 'dd/MM/yyyy')],
       cpf: [this.customer.cpf],
-      gender: [this.customer.gender],
-      newPassword: [''],
+      gender: [this.customer.gender]
+    })
+
+    this.formPassword = this.formbuilder.group({
+      password: [''],
+      newPassword: ['', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(20)]
+      ],
+
       confirmNewPassword: ['', [
         Validators.required,
-        CustomValidators.matchPassword('newPassword', 'confirmNewPassword')]
+        Validators.minLength(8),
+        Validators.maxLength(20),
+        CustomValidators.matchPassword('newPassword', 'confirmNewPassword'),]
       ]
     })
   }
 
-  createAddressForm(address : AdressDTO){
+  createAddressForm(address : AdressDTO) {
     this.formAddress = this.formbuilder.group({
       addressType : [address.addressType, [Validators.required]],
       streetType: [address.streetType, [Validators.required]],
@@ -123,12 +136,88 @@ export class DetailsComponent implements OnInit {
 
   }
 
-
-  editForm() {
-    this.edit = false;
+  validationSaveBtn() {
+    if (this.isEditPassword && this.isEdit) {
+      if (this.formAccount.valid && this.formPassword.valid) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    else if (this.isEdit && !this.isEditPassword) {
+      if (this.formAccount.valid) {
+        return true;
+      } else {
+        return false
+      }
+    }
+    else {
+      return false;
+    }
   }
 
-  editPassowrd() {
-    this.editPassword = true;
+  verifyPassword(password: any) {
+    if (password == this.customer.password) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  saveEditAccount(formAccount: FormGroup, formPassword: FormGroup) {
+
+    if (this.isEditPassword && this.isEdit) {
+      if (formAccount.valid && formPassword.valid) {
+        // edit account
+        this.customer.name = formAccount.controls['name'].value;
+        this.customer.phoneNumber = formAccount.controls['phone'].value;
+        this.customerService.updateCustomer(this.customer).subscribe(res => {
+
+        })
+
+        // edit password
+        this.customerPassword.currentPassword = formAccount.controls['password'].value;
+        this.customerPassword.newPassword = formAccount.controls['confirmNewPassword'].value;
+        this.customerService.changerPassowrd(this.customerPassword).subscribe(res2 => {
+
+        })
+        return true;
+
+      } else {
+        return false;
+
+      }
+    }
+    else if (this.isEdit && !this.isEditPassword) {
+      if (formAccount.valid) {
+
+        this.customer.name = formAccount.controls['name'].value;
+        this.customer.phoneNumber = formAccount.controls['phone'].value;
+        this.customerService.updateCustomer(this.customer).subscribe(res => {
+
+        })
+        return true;
+
+      } else {
+        return false
+
+      }
+    }
+    else {
+      return false;
+    }
+  }
+
+  cancelEditForm() {
+    this.isEdit = false;
+    this.isEditPassword = false;
+  }
+
+  editForm() {
+    this.isEdit = true;
+  }
+
+  editPassword() {
+    this.isEditPassword = true;
   }
 }
