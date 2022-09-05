@@ -31,6 +31,13 @@ export class DetailsComponent implements OnInit {
   formAddresses : FormGroup[] = [];
   addressToEdit !: FormGroup;
 
+  //credit card
+  name: string = '';
+  number: string = '';
+  expiry: string = '';
+  cvc: string = '';
+
+
   public stateList = StateList;
 
   constructor(private formbuilder: FormBuilder, public datePipe: DatePipe, private customerService : CustumerService, private addressService: AddressService) { }
@@ -100,6 +107,10 @@ export class DetailsComponent implements OnInit {
     this.loadAddressFormList();
   }
 
+  activateCreateCreditCard() {
+
+  }
+
   activateCreateAddress(){
     if(!this.isAddressCreating){
       this.isAddressCreating = true;
@@ -112,30 +123,30 @@ export class DetailsComponent implements OnInit {
     this.isAddressEditing = false;
   }
 
-  // createAddress(){
-  //   let newAddress = new AdressDTO();
+  createAddress(){
+    let newAddress = new AdressDTO();
 
-  //   //TODO adicionar validação
+    //TODO adicionar validação
 
-  //   if(this.formAddress.valid){
-  //     newAddress.addressType = this.formAddress.controls['addressType'].value;
-  //     newAddress.streetType = this.formAddress.controls['streetType'].value;
-  //     newAddress.cep = this.formAddress.controls['CEP'].value;
-  //     newAddress.city = this.formAddress.controls['city'].value;
-  //     newAddress.country = this.formAddress.controls['country'].value;
-  //     newAddress.description = this.formAddress.controls['description'].value;
-  //     newAddress.district = this.formAddress.controls['district'].value;
-  //     newAddress.number = this.formAddress.controls['number'].value;
-  //     newAddress.state = this.formAddress.controls['state'].value;
-  //     newAddress.street = this.formAddress.controls['street'].value;
-  //     newAddress.customerId = AccessService.getUser()!;
+    if(this.formAddress.valid){
+      newAddress.addressType = this.formAddress.controls['addressType'].value;
+      newAddress.streetType = this.formAddress.controls['streetType'].value;
+      newAddress.cep = this.formAddress.controls['CEP'].value;
+      newAddress.city = this.formAddress.controls['city'].value;
+      newAddress.country = this.formAddress.controls['country'].value;
+      newAddress.description = this.formAddress.controls['description'].value;
+      newAddress.district = this.formAddress.controls['district'].value;
+      newAddress.number = this.formAddress.controls['number'].value;
+      newAddress.state = this.formAddress.controls['state'].value;
+      newAddress.street = this.formAddress.controls['street'].value;
+      newAddress.customerId = AccessService.getUser()!;
 
-  //     this.addressService.createAddress(newAddress).subscribe({
-  //       next:(res)=>{
+      this.addressService.createAddress(newAddress).subscribe({
+        next:(res)=>{}
+      })
+    }
 
-  //   }
-
-  // }
+  }
 
   selectAddressToEdit(address : FormGroup){
     this.addressToEdit = address;

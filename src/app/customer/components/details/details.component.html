@@ -250,6 +250,16 @@
         </ng-container>
       </form>
     </ng-container>
+  </div>
 
+  <div class="row mb-3">
+    <ng-container *ngIf="customer.addresses.length == 0 && !isAddressCreating">
+      <div class="d-flex">
+        <p>Ops, parece que você não tem nenhum cartão cadastrado, <button class="btn btn-link" (click)="activateCreateCreditCard()">cadastre um agora!</button></p>
+      </div>
+
+      <ng-credit-card [name]="name" [number]="number" [cvc]="cvc" [expiry]="expiry"></ng-credit-card>
+
+    </ng-container>
   </div>
 </div>
