@@ -1,3 +1,6 @@
+import { Response } from './../../../access/models/response';
+import { CreditCardService } from './../../../access/services/credit-card/credit-card.service';
+import { CreditCardDTO } from './../../../access/models/creditCardDTO.model';
 import { ValidatorFn } from '@angular/forms';
 import { CustomValidators } from 'src/app/shared/custom-validators';
 import { CustomerDTO } from './../../../access/models/custumerDTO.model';
@@ -20,7 +23,10 @@ export class DetailsComponent implements OnInit {
 
   formAccount: FormGroup = new FormGroup({});
   formPassword: FormGroup = new FormGroup({});
+  formCreditCard: FormGroup[] = [];
+
   customer: CustomerDTO = new CustomerDTO();
+  creditCard: CreditCardDTO[] = [];
   customerPassword: CustomerChangePasswordDTO = new CustomerChangePasswordDTO();
   isEdit: boolean = false;
   isEditPassword: boolean = false;
@@ -31,18 +37,14 @@ export class DetailsComponent implements OnInit {
   formAddresses : FormGroup[] = [];
   addressToEdit !: FormGroup;
 
-  //credit card
-  name: string = '';
-  number: string = '';
-  expiry: string = '';
-  cvc: string = '';
-
-
   public stateList = StateList;
 
-  constructor(private formbuilder: FormBuilder, public datePipe: DatePipe, private customerService : CustumerService, private addressService: AddressService) { }
+  constructor(private formbuilder: FormBuilder, public datePipe: DatePipe,
+    private customerService: CustumerService, private addressService: AddressService,
+    public creditCardService: CreditCardService) { }
 
   ngOnInit(): void {
+
     this.getCustomerInfo();
     this.createForm();
   }
@@ -63,7 +65,6 @@ export class DetailsComponent implements OnInit {
         Validators.minLength(8),
         Validators.maxLength(20)]
       ],
-
       confirmNewPassword: ['', [
         Validators.required,
         Validators.minLength(8),
@@ -89,10 +90,32 @@ export class DetailsComponent implements OnInit {
     });
   }
 
-  loadAddressFormList(){
+  createFormCreditCard(creditCard: CreditCardDTO) {
+    return this.formbuilder.group({
+      name: [creditCard.ownerName],
+      number: [creditCard.cardNumber],
+      expiry: [''],
+      cvc: [creditCard.securityCode],
+    })
+  }
+
+  loadCreditCardList() {
+    this.formCreditCard = [];
+    this.creditCard.forEach(creditCard => {
+      this.formCreditCard.push(this.createFormCreditCard(creditCard))
+    })
+  }
+
+  loadAddressFormList() {
     this.formAddresses = [];
     this.customer.addresses.forEach(address => {
       this.formAddresses.push(this.createAddressForm(address));
+    });
+  }
+
+  getCreditCard() {
+    this.creditCardService.getCustomerCreditCards().subscribe(res => {
+      this.creditCard = res.data;
     });
   }
 
@@ -103,7 +126,7 @@ export class DetailsComponent implements OnInit {
     });
   }
 
-  afterReceivingCustomerInfo(){
+  afterReceivingCustomerInfo() {
     this.loadAddressFormList();
   }
 
@@ -111,19 +134,19 @@ export class DetailsComponent implements OnInit {
 
   }
 
-  activateCreateAddress(){
+  activateCreateAddress() {
     if(!this.isAddressCreating){
       this.isAddressCreating = true;
       this.formAddress = this.createAddressForm(new AdressDTO());
     }
   }
 
-  cancelAddressForm(){
+  cancelAddressForm() {
     this.isAddressCreating = false;
     this.isAddressEditing = false;
   }
 
-  createAddress(){
+  createAddress() {
     let newAddress = new AdressDTO();
 
     //TODO adicionar validação
@@ -148,11 +171,11 @@ export class DetailsComponent implements OnInit {
 
   }
 
-  selectAddressToEdit(address : FormGroup){
+  selectAddressToEdit(address : FormGroup) {
     this.addressToEdit = address;
   }
 
-  EditAddress(address : FormGroup){
+  EditAddress(address : FormGroup) {
     let editAddress = new AdressDTO();
 
     //TODO adicionar validação
