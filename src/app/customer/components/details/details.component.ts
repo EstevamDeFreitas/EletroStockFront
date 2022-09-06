@@ -23,13 +23,17 @@ export class DetailsComponent implements OnInit {
 
   formAccount: FormGroup = new FormGroup({});
   formPassword: FormGroup = new FormGroup({});
-  formCreditCard: FormGroup[] = [];
+
+  formCreditCards: FormGroup[] = [];
+  formCreditCard: FormGroup = new FormGroup({});
+  creditCard: CreditCardDTO[] = [];
+  isCreditCardCreating: boolean = false;
 
   customer: CustomerDTO = new CustomerDTO();
-  creditCard: CreditCardDTO[] = [];
   customerPassword: CustomerChangePasswordDTO = new CustomerChangePasswordDTO();
   isEdit: boolean = false;
   isEditPassword: boolean = false;
+
 
   formAddress : FormGroup = new FormGroup({});
   isAddressEditing : boolean = false;
@@ -44,7 +48,7 @@ export class DetailsComponent implements OnInit {
     public creditCardService: CreditCardService) { }
 
   ngOnInit(): void {
-
+    this.getCreditCard();
     this.getCustomerInfo();
     this.createForm();
   }
@@ -90,6 +94,10 @@ export class DetailsComponent implements OnInit {
     });
   }
 
+  createCreditCard(creditCard: CreditCardDTO) {
+
+  }
+
   createFormCreditCard(creditCard: CreditCardDTO) {
     return this.formbuilder.group({
       name: [creditCard.ownerName],
@@ -100,9 +108,9 @@ export class DetailsComponent implements OnInit {
   }
 
   loadCreditCardList() {
-    this.formCreditCard = [];
+    this.formCreditCards = [];
     this.creditCard.forEach(creditCard => {
-      this.formCreditCard.push(this.createFormCreditCard(creditCard))
+      this.formCreditCards.push(this.createFormCreditCard(creditCard))
     })
   }
 
@@ -116,6 +124,7 @@ export class DetailsComponent implements OnInit {
   getCreditCard() {
     this.creditCardService.getCustomerCreditCards().subscribe(res => {
       this.creditCard = res.data;
+      this.afterReceivingCreditCards();
     });
   }
 
@@ -126,12 +135,19 @@ export class DetailsComponent implements OnInit {
     });
   }
 
+  afterReceivingCreditCards() {
+    this.loadCreditCardList();
+  }
+
   afterReceivingCustomerInfo() {
     this.loadAddressFormList();
   }
 
   activateCreateCreditCard() {
-
+    if(!this.isCreditCardCreating) {
+      this.isCreditCardCreating = true;
+      this.formCreditCard = this.createFormCreditCard(new CreditCardDTO())
+    }
   }
 
   activateCreateAddress() {
