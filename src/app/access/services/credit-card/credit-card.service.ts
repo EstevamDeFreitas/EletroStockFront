@@ -1,7 +1,8 @@
 import { CreditCardDTO } from './../../models/creditCardDTO.model';
-import { HttpClient, HttpResponseBase } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Response } from '../../models/response';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class CreditCardService {
   constructor(private http: HttpClient) { }
 
   getCustomerCreditCards() {
-    return this.http.get<HttpResponseBase<CreditCardDTO[]>>(this.API);
+    return this.http.get<HttpResponse<Response<CreditCardDTO[]>>>(this.API);
   }
 
 }

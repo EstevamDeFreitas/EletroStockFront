@@ -115,7 +115,7 @@ export class DetailsComponent implements OnInit {
 
   getCreditCard() {
     this.creditCardService.getCustomerCreditCards().subscribe(res => {
-      this.creditCard = res.data;
+      this.creditCard = res.body?.data!;
     });
   }
 
