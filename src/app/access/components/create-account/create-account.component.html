@@ -27,7 +27,7 @@
         <input
           formControlName="password"
           id="senha"
-          type="text"
+          type="password"
           class="form-control"
           placeholder="Criar Senha"
           [ngClass]="logForm.controls['password'].errors &&
@@ -47,6 +47,7 @@
           formControlName="confirmPassword"
           id="confirmPassword"
           class="form-control"
+          type="password"
           placeholder="Confirmar Senha"
           [ngClass]="logForm.controls['confirmPassword'].errors &&
                      logForm.controls['confirmPassword'].touched ? 'invalid': ''"
@@ -94,6 +95,24 @@
       </div>
       <div class="two-inputs">
         <div class="text">
+          <label for="cpf" class="form-label">CPF:</label>
+          <input
+            formControlName="cpf"
+            id="cpf"
+            type="text"
+            class="form-control"
+            placeholder="000.000.000-00"
+            [mask]="'000.000.000-00'"
+            required
+          />
+          <app-error-msg
+              [showError]="true"
+              [errorMsg]="'CPF obrigatório'"
+              *ngIf="custForm.controls['cpf'].errors &&
+                    custForm.controls['cpf'].touched">
+          </app-error-msg>
+        </div>
+        <div class="text">
           <label for="gender" class="form-label">Gênero:</label>
           <select
             formControlName="gender"
@@ -114,6 +133,19 @@
                     custForm.controls['gender'].touched">
           </app-error-msg>
         </div>
+      </div>
+
+      <div class="two-inputs">
+        <div class="text">
+          <label for="teltype" class="form-label">Tipo de Telefone:</label>
+          <input
+            formControlName="phoneType"
+            id="teltype"
+            type="text"
+            class="form-control"
+            placeholder="Ex: residencial..."
+          />
+        </div>
         <div class="text">
           <label for="tel" class="form-label">Telefone:</label>
           <input
@@ -126,25 +158,8 @@
           />
         </div>
       </div>
-      <div class="two-inputs">
-        <div class="text">
-          <label for="cpf" class="form-label">CPF:</label>
-          <input
-            formControlName="cpf"
-            id="cpf"
-            type="text"
-            class="form-control"
-            placeholder="000.000.000-00"
-            [mask]="'000.000.000-00'"
-            required
-          />
-          <app-error-msg
-              [showError]="true"
-              [errorMsg]="'CPF obrigatório'"
-              *ngIf="custForm.controls['cpf'].errors &&
-                    custForm.controls['cpf'].touched">
-          </app-error-msg>
-        </div>
+      <div class="">
+
         <div class="text">
           <label for="date" class="form-label">Data de nascimento:</label>
           <input

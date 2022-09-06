@@ -12,7 +12,11 @@
         <label for="password" class="form-label">Senha</label>
         <input [(ngModel)]="login.password" name="password" type="text" class="form-control" id="password" placeholder="password" required>
       </div>
-      <button type="submit" class="button button-orange" >ENTRAR</button>
+      <div>
+        <button type="submit" class="button button-orange" >ENTRAR</button>
+        <button (click)="redirectToCreateAccount()" class="button button-orange" >CRIAR CONTA</button>
+      </div>
+
     </form>
   </div>
 </div>
