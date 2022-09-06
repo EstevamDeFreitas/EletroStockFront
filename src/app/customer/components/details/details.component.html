@@ -1,4 +1,4 @@
-<div class="accont-panel">
+<div class="accont-panel" *ngIf="!isCustomerLoading">
   <form [formGroup]="formAccount" class="form-panel">
     <section>
       <div>
@@ -93,7 +93,7 @@
     <button class="btn btn-lg col-4" (click)="activateCreateAddress()">Adicionar</button>
   </div>
   <div class="row">
-    <ng-container *ngIf="customer.addresses.length == 0 && !isAddressCreating">
+    <ng-container *ngIf="(customer.addresses != undefined ? customer.addresses.length == 0 : true) && !isAddressCreating">
       <div class="d-flex">
         <p>Ops, parece que você não tem nenhum endereço cadastrado, <button class="btn btn-link" (click)="activateCreateAddress()">cadastre um agora!</button></p>
       </div>
@@ -253,18 +253,33 @@
   </div>
 
   <div class="row mb-3">
-    <ng-container *ngIf="customer.addresses.length == 0 && !isAddressCreating">
+    <div class="row">
+      <h2 class="col-8">Cartões</h2>
+      <button class="btn btn-lg col-4" (click)="activateCreateCreditCard()">Adicionar</button>
+    </div>
+
+    <ng-container *ngIf="(customer.creditCards != undefined ? customer.creditCards.length == 0 : true) && !isCardCreating">
       <div class="d-flex">
         <p>Ops, parece que você não tem nenhum cartão cadastrado, <button class="btn btn-link" (click)="activateCreateCreditCard()">cadastre um agora!</button></p>
       </div>
+    </ng-container>
 
+    <ng-container *ngIf="(customer.creditCards == undefined ? false : customer.creditCards.length > 0) && !isCardCreating">
       <section *ngIf="formCreditCard">
-        <div *ngFor="let card in formCreditCard">
+        <div *ngFor="let card of formCreditCard">
           <ng-credit-card [name]="card.controls['name'].value" [number]="card.controls['number'].value"
           [cvc]="card.controls['cvc'].value" [expiry]="card.controls['expiry'].value"></ng-credit-card>
         </div>
       </section>
+    </ng-container>
 
+    <ng-container *ngIf="isCardCreating">
+      <section>
+        <div>
+          <ng-credit-card [name]="formCreditCardCreate.controls['name'].value" [number]="formCreditCardCreate.controls['number'].value"
+          [cvc]="formCreditCardCreate.controls['cvc'].value" [expiry]="formCreditCardCreate.controls['expiry'].value"></ng-credit-card>
+        </div>
+      </section>
     </ng-container>
   </div>
 </div>

@@ -25,6 +25,8 @@ export class DetailsComponent implements OnInit {
   formPassword: FormGroup = new FormGroup({});
   formCreditCard: FormGroup[] = [];
 
+  formCreditCardCreate : FormGroup = new FormGroup({});
+
   customer: CustomerDTO = new CustomerDTO();
   creditCard: CreditCardDTO[] = [];
   customerPassword: CustomerChangePasswordDTO = new CustomerChangePasswordDTO();
@@ -34,10 +36,14 @@ export class DetailsComponent implements OnInit {
   formAddress : FormGroup = new FormGroup({});
   isAddressEditing : boolean = false;
   isAddressCreating : boolean = false;
+  isCardCreating : boolean = false;
+  isCardEditing : boolean = false;
   formAddresses : FormGroup[] = [];
   addressToEdit !: FormGroup;
 
   public stateList = StateList;
+
+  isCustomerLoading : boolean = false;
 
   constructor(private formbuilder: FormBuilder, public datePipe: DatePipe,
     private customerService: CustumerService, private addressService: AddressService,
@@ -46,7 +52,7 @@ export class DetailsComponent implements OnInit {
   ngOnInit(): void {
 
     this.getCustomerInfo();
-    this.createForm();
+
   }
 
   createForm() {
@@ -120,18 +126,24 @@ export class DetailsComponent implements OnInit {
   }
 
   getCustomerInfo(){
+    this.isCustomerLoading = true;
     this.customerService.getCustomerDetail().subscribe(res => {
       this.customer = res.data;
       this.afterReceivingCustomerInfo();
+      this.isCustomerLoading = false;
     });
   }
 
   afterReceivingCustomerInfo() {
     this.loadAddressFormList();
+    this.createForm();
   }
 
   activateCreateCreditCard() {
-
+    if(!this.isCardCreating){
+      this.isCardCreating = true;
+      this.formCreditCardCreate = this.createFormCreditCard(new CreditCardDTO())
+    }
   }
 
   activateCreateAddress() {
@@ -165,7 +177,10 @@ export class DetailsComponent implements OnInit {
       newAddress.customerId = AccessService.getUser()!;
 
       this.addressService.createAddress(newAddress).subscribe({
-        next:(res)=>{}
+        next:(res)=>{
+          this.isAddressCreating = false;
+          this.getCustomerInfo();
+        }
       })
     }
 
@@ -303,8 +318,9 @@ export class DetailsComponent implements OnInit {
         })
 
         // edit password
-        this.customerPassword.currentPassword = formAccount.controls['password'].value;
-        this.customerPassword.newPassword = formAccount.controls['confirmNewPassword'].value;
+        this.customerPassword.currentPassword = formPassword.controls['password'].value;
+        this.customerPassword.newPassword = formPassword.controls['confirmNewPassword'].value;
+        this.customerPassword.email = this.customer.email;
         this.customerService.changerPassowrd(this.customerPassword).subscribe(res2 => {
 
         })
@@ -345,6 +361,6 @@ export class DetailsComponent implements OnInit {
   }
 
   editPassword() {
-    this.isEditPassword = true;
+    this.isEditPassword = !this.isEditPassword;
   }
 }
