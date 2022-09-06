@@ -253,32 +253,67 @@
   </div>
 
   <div class="row mb-3">
-    <div class="row">
-      <h2 class="col-8">Cartões</h2>
-      <button class="btn btn-lg col-4" (click)="activateCreateCreditCard()">Adicionar</button>
-    </div>
-
-    <ng-container *ngIf="(customer.creditCards != undefined ? customer.creditCards.length == 0 : true) && !isCardCreating">
+    <ng-container *ngIf="creditCard.length === 0 && !isCreditCardCreating">
       <div class="d-flex">
         <p>Ops, parece que você não tem nenhum cartão cadastrado, <button class="btn btn-link" (click)="activateCreateCreditCard()">cadastre um agora!</button></p>
       </div>
     </ng-container>
-
-    <ng-container *ngIf="(customer.creditCards == undefined ? false : customer.creditCards.length > 0) && !isCardCreating">
-      <section *ngIf="formCreditCard">
-        <div *ngFor="let card of formCreditCard">
-          <ng-credit-card [name]="card.controls['name'].value" [number]="card.controls['number'].value"
-          [cvc]="card.controls['cvc'].value" [expiry]="card.controls['expiry'].value"></ng-credit-card>
+    <ng-container *ngIf="isCreditCardCreating">
+      <form [formGroup]="formCreditCard" (ngSubmit)="createAddress()" class="mb-3 w-50 card p-3">
+        <div class="row">
+          <label for="name" class="form-label">Nome do Cartão:</label>
+          <input type="text" class="form-control" id="name" formControlName="name" required>
+        </div>
+        <div class="row">
+          <label for="number" class="form-label">Nnumero do Cartão:</label>
+          <input type="text" class="form-control" id="number" formControlName="number" required>
+        </div>
+        <div class="row">
+          <label for="expiry" class="form-label">Data de Expiração:</label>
+          <input type="text" class="form-control" id="expiry" formControlName="expiry" required>
+        </div>
+        <div class="row">
+          <label for="cvc" class="form-label">Codigo de Verificação:</label>
+          <input type="text" class="form-control" id="cvc" formControlName="cvc" required>
+        </div>
+      </form>
+      <section class="w-50">
+        <div>
+          <ng-credit-card [name]="formCreditCard.controls['name'].value" [number]="formCreditCard.controls['number'].value"
+          [cvc]="formCreditCard.controls['cvc'].value" [expiry]="formCreditCard.controls['expiry'].value"></ng-credit-card>
         </div>
       </section>
     </ng-container>
 
-    <ng-container *ngIf="isCardCreating">
-      <section>
-        <div>
-          <ng-credit-card [name]="formCreditCardCreate.controls['name'].value" [number]="formCreditCardCreate.controls['number'].value"
-          [cvc]="formCreditCardCreate.controls['cvc'].value" [expiry]="formCreditCardCreate.controls['expiry'].value"></ng-credit-card>
-        </div>
+    <ng-container>
+      <section *ngIf="formCreditCards">
+        <div *ngFor="let card in formCreditCards">
+          <ng-credit-card [name]="card.controls['name'].value" [number]="card.controls['number'].value"
+            [cvc]="card.controls['cvc'].value" [expiry]="card.controls['expiry'].value">
+          </ng-credit-card>
+          <div>
+            <button>Editar</button>
+            <button>Deletar</button>
+          </div>
+          <form [formGroup]="card">
+            <div class="row">
+              <label for="name" class="form-label">Nome do Cartão:</label>
+              <input type="text" class="form-control" id="name" formControlName="name" required>
+            </div>
+            <div class="row">
+              <label for="number" class="form-label">Nnumero do Cartão:</label>
+              <input type="text" class="form-control" id="number" formControlName="number" required>
+            </div>
+            <div class="row">
+              <label for="expiry" class="form-label">Data de Expiração:</label>
+              <input type="text" class="form-control" id="expiry" formControlName="expiry" required>
+            </div>
+            <div class="row">
+              <label for="cvc" class="form-label">Codigo de Verificação:</label>
+              <input type="text" class="form-control" id="cvc" formControlName="cvc" required>
+            </div>
+          </form>
+      </div>
       </section>
     </ng-container>
   </div>
