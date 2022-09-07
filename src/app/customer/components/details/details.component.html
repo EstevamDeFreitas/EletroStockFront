@@ -253,6 +253,10 @@
   </div>
 
   <div class="row mb-3">
+    <div class="row">
+      <h2 class="col-8">Cartões</h2>
+      <button class="btn btn-lg col-4" (click)="activateCreateCreditCard()">Adicionar</button>
+    </div>
     <ng-container *ngIf="creditCard.length === 0 && !isCreditCardCreating">
       <div class="d-flex">
         <p>Ops, parece que você não tem nenhum cartão cadastrado, <button class="btn btn-link" (click)="activateCreateCreditCard()">cadastre um agora!</button></p>
@@ -265,7 +269,7 @@
           <input type="text" class="form-control" id="name" formControlName="name" required>
         </div>
         <div class="row">
-          <label for="number" class="form-label">Nnumero do Cartão:</label>
+          <label for="number" class="form-label">Numero do Cartão:</label>
           <input type="text" class="form-control" id="number" formControlName="number" required>
         </div>
         <div class="row">
