@@ -15,7 +15,7 @@ export class CreateAccountComponent implements OnInit {
   custForm: FormGroup = new FormGroup({});
   customerDTO: CustomerDTO = new CustomerDTO();
   confirmPassword: string = "";
-  step = 2;
+  step = 1;
 
   constructor(private customerService: CustumerService, private formBuilder: FormBuilder,
               private router:Router) { }
