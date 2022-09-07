@@ -13,6 +13,8 @@ import { StateList } from 'src/app/shared/states';
 import { AccessService } from 'src/app/access/services/access/access.service';
 import { AddressService } from 'src/app/access/services/address/address.service';
 import { CustomerChangePasswordDTO } from 'src/app/access/models/customerChangePasswordDTO';
+import { CardFlagService } from 'src/app/access/services/card-flag/card-flag.service';
+import { CardFlagDTO } from 'src/app/access/models/cardFlagDTO.model';
 
 @Component({
   selector: 'app-details',
@@ -47,14 +49,24 @@ export class DetailsComponent implements OnInit {
 
   isCustomerLoading : boolean = false;
 
+  availableCardFlags : CardFlagDTO[] = [];
+
   constructor(private formbuilder: FormBuilder, public datePipe: DatePipe,
     private customerService: CustumerService, private addressService: AddressService,
-    public creditCardService: CreditCardService) { }
+    public creditCardService: CreditCardService, private cardFlagService : CardFlagService) { }
 
   ngOnInit(): void {
-    this.getCreditCard();
+    //this.getCreditCard();
     this.getCustomerInfo();
+    this.getAvailablesCardFlags();
+  }
 
+  getAvailablesCardFlags(){
+    this.cardFlagService.getCardFlags().subscribe({
+      next: (res)=>{
+        this.availableCardFlags = res.data;
+      }
+    })
   }
 
   createForm() {
@@ -108,12 +120,13 @@ export class DetailsComponent implements OnInit {
       number: [creditCard.cardNumber],
       expiry: [''],
       cvc: [creditCard.securityCode],
+      cardFlagId : [creditCard.id]
     })
   }
 
   loadCreditCardList() {
     this.formCreditCards = [];
-    this.creditCard.forEach(creditCard => {
+    this.customer.creditCards.forEach(creditCard => {
       this.formCreditCards.push(this.createFormCreditCard(creditCard))
     })
   }
@@ -142,12 +155,13 @@ export class DetailsComponent implements OnInit {
   }
 
   afterReceivingCreditCards() {
-    this.loadCreditCardList();
+
   }
 
   afterReceivingCustomerInfo() {
     this.loadAddressFormList();
     this.createForm();
+    this.loadCreditCardList();
   }
 
   activateCreateCreditCard() {

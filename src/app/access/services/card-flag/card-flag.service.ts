@@ -27,4 +27,8 @@ export class CardFlagService {
   createCardFlag(flagName : string){
     return this.http.post<Response<any>>(this.API, flagName);
   }
+
+  deleteCardFlag(id : string){
+    return this.http.delete<Response<any>>(this.API + `/${id}`);
+  }
 }

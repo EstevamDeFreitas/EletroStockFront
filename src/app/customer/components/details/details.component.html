@@ -280,18 +280,31 @@
           <label for="cvc" class="form-label">Codigo de Verificação:</label>
           <input type="text" class="form-control" id="cvc" formControlName="cvc" required>
         </div>
+        <div class="row">
+          <label for="flag" class="form-label">Bandeira do Cartão:</label>
+          <select name="flag" id="flag" class="form-select" formControlName="cardFlagId" required>
+            <ng-container *ngFor="let card of availableCardFlags">
+              <option [value]="card.id">{{card.name}}</option>
+            </ng-container>
+          </select>
+        </div>
       </form>
       <section class="w-50">
         <div>
           <ng-credit-card [name]="formCreditCard.controls['name'].value" [number]="formCreditCard.controls['number'].value"
           [cvc]="formCreditCard.controls['cvc'].value" [expiry]="formCreditCard.controls['expiry'].value"></ng-credit-card>
         </div>
+
       </section>
+      <div>
+        <button class="btn btn-success">Criar</button>
+        <button class="btn btn-danger">Cancelar</button>
+      </div>
     </ng-container>
 
     <ng-container>
       <section *ngIf="formCreditCards">
-        <div *ngFor="let card in formCreditCards">
+        <div *ngFor="let card of formCreditCards">
           <ng-credit-card [name]="card.controls['name'].value" [number]="card.controls['number'].value"
             [cvc]="card.controls['cvc'].value" [expiry]="card.controls['expiry'].value">
           </ng-credit-card>
