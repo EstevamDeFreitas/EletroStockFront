@@ -40,7 +40,8 @@ export class CreateAccountComponent implements OnInit {
       gender: ['', Validators.required],
       phoneNumber: ['', Validators.pattern('(([+][(]?[0-9]{1,3}[)]?)|([(]?[0-9]{4}[)]?))\s*[)]?[-\s\.]?[(]?[0-9]{1,3}[)]?([-\s\.]?[0-9]{3})([-\s\.]?[0-9]{3,4})')],
       cpf: ['', [Validators.required, Validators.pattern(/^[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}$/)]],
-      birthDate: ['', [Validators.required]]
+      birthDate: ['', [Validators.required]],
+      phoneType : ['', [Validators.required]]
     })
   }
 
@@ -58,7 +59,13 @@ export class CreateAccountComponent implements OnInit {
     this.customerDTO.cpf = custForm.controls['cpf'].value;
     this.customerDTO.birthDate = custForm.controls['birthDate'].value;
     this.customerDTO.gender = custForm.controls['gender'].value;
-    console.log(this.customerDTO)
+
+    let tempPhoneNumber : string = custForm.controls['phoneNumber'].value;
+
+    this.customerDTO.phoneCode = Number.parseInt(tempPhoneNumber.slice(0,2));
+    this.customerDTO.phoneNumber = Number.parseInt(tempPhoneNumber.slice(2));
+    this.customerDTO.phoneType = custForm.controls['phoneType'].value;
+
 
     this.customerService.createCustomer(this.customerDTO).subscribe(res => {
       this.redirectLogin();

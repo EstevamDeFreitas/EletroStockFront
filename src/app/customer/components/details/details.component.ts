@@ -13,6 +13,8 @@ import { StateList } from 'src/app/shared/states';
 import { AccessService } from 'src/app/access/services/access/access.service';
 import { AddressService } from 'src/app/access/services/address/address.service';
 import { CustomerChangePasswordDTO } from 'src/app/access/models/customerChangePasswordDTO';
+import { CardFlagService } from 'src/app/access/services/card-flag/card-flag.service';
+import { CardFlagDTO } from 'src/app/access/models/cardFlagDTO.model';
 
 @Component({
   selector: 'app-details',
@@ -38,19 +40,33 @@ export class DetailsComponent implements OnInit {
   formAddress : FormGroup = new FormGroup({});
   isAddressEditing : boolean = false;
   isAddressCreating : boolean = false;
+  isCardCreating : boolean = false;
+  isCardEditing : boolean = false;
   formAddresses : FormGroup[] = [];
   addressToEdit !: FormGroup;
 
   public stateList = StateList;
 
+  isCustomerLoading : boolean = false;
+
+  availableCardFlags : CardFlagDTO[] = [];
+
   constructor(private formbuilder: FormBuilder, public datePipe: DatePipe,
     private customerService: CustumerService, private addressService: AddressService,
-    public creditCardService: CreditCardService) { }
+    public creditCardService: CreditCardService, private cardFlagService : CardFlagService) { }
 
   ngOnInit(): void {
-    this.getCreditCard();
+    //this.getCreditCard();
     this.getCustomerInfo();
-    this.createForm();
+    this.getAvailablesCardFlags();
+  }
+
+  getAvailablesCardFlags(){
+    this.cardFlagService.getCardFlags().subscribe({
+      next: (res)=>{
+        this.availableCardFlags = res.data;
+      }
+    })
   }
 
   createForm() {
@@ -104,12 +120,13 @@ export class DetailsComponent implements OnInit {
       number: [creditCard.cardNumber],
       expiry: [''],
       cvc: [creditCard.securityCode],
+      cardFlagId : [creditCard.id]
     })
   }
 
   loadCreditCardList() {
     this.formCreditCards = [];
-    this.creditCard.forEach(creditCard => {
+    this.customer.creditCards.forEach(creditCard => {
       this.formCreditCards.push(this.createFormCreditCard(creditCard))
     })
   }
@@ -123,24 +140,28 @@ export class DetailsComponent implements OnInit {
 
   getCreditCard() {
     this.creditCardService.getCustomerCreditCards().subscribe(res => {
-      this.creditCard = res.data;
+      this.creditCard = res.data!;
       this.afterReceivingCreditCards();
     });
   }
 
   getCustomerInfo(){
+    this.isCustomerLoading = true;
     this.customerService.getCustomerDetail().subscribe(res => {
       this.customer = res.data;
       this.afterReceivingCustomerInfo();
+      this.isCustomerLoading = false;
     });
   }
 
   afterReceivingCreditCards() {
-    this.loadCreditCardList();
+
   }
 
   afterReceivingCustomerInfo() {
     this.loadAddressFormList();
+    this.createForm();
+    this.loadCreditCardList();
   }
 
   activateCreateCreditCard() {
@@ -181,7 +202,10 @@ export class DetailsComponent implements OnInit {
       newAddress.customerId = AccessService.getUser()!;
 
       this.addressService.createAddress(newAddress).subscribe({
-        next:(res)=>{}
+        next:(res)=>{
+          this.isAddressCreating = false;
+          this.getCustomerInfo();
+        }
       })
     }
 
@@ -319,8 +343,9 @@ export class DetailsComponent implements OnInit {
         })
 
         // edit password
-        this.customerPassword.currentPassword = formAccount.controls['password'].value;
-        this.customerPassword.newPassword = formAccount.controls['confirmNewPassword'].value;
+        this.customerPassword.currentPassword = formPassword.controls['password'].value;
+        this.customerPassword.newPassword = formPassword.controls['confirmNewPassword'].value;
+        this.customerPassword.email = this.customer.email;
         this.customerService.changerPassowrd(this.customerPassword).subscribe(res2 => {
 
         })
@@ -361,6 +386,6 @@ export class DetailsComponent implements OnInit {
   }
 
   editPassword() {
-    this.isEditPassword = true;
+    this.isEditPassword = !this.isEditPassword;
   }
 }
