@@ -1,3 +1,9 @@
+import { CuponsConfigComponent } from './adm/config/cupons-config/cupons-config.component';
+import { CardFlagComponent } from './adm/config/card-flag/card-flag.component';
+import { CategoriesInativationsComponent } from './adm/config/categories-inativations/categories-inativations.component';
+import { ProductsCategoriesComponent } from './adm/config/products-categories/products-categories.component';
+import { PriceCategoriesComponent } from './adm/config/price-categories/price-categories.component';
+import { ConfigurationComponent } from './adm/config/configuration/configuration.component';
 import { NgCreditCardModule } from 'angular-credit-card';
 import { RouterModule } from '@angular/router';
 import { NgxMaskModule } from 'ngx-mask';
@@ -31,6 +37,12 @@ import { AccessInterceptor } from './access/services/access/access.interceptor';
     PurchasesComponent,
     CuponsComponent,
     ErrorMsgComponent,
+    ConfigurationComponent,
+    PriceCategoriesComponent,
+    ProductsCategoriesComponent,
+    CuponsConfigComponent,
+    CategoriesInativationsComponent,
+    CardFlagComponent
   ],
   imports: [
     BrowserModule,

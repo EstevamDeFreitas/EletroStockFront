@@ -263,22 +263,32 @@
       </div>
     </ng-container>
     <ng-container *ngIf="isCreditCardCreating">
-      <form [formGroup]="formCreditCard" (ngSubmit)="createAddress()" class="mb-3 w-50 card p-3">
-        <div class="row">
-          <label for="name" class="form-label">Nome do Cartão:</label>
-          <input type="text" class="form-control" id="name" formControlName="name" required>
-        </div>
+      <form [formGroup]="formCreditCard" class="mb-3 w-50 card p-3">
         <div class="row">
           <label for="number" class="form-label">Numero do Cartão:</label>
-          <input type="text" class="form-control" id="number" formControlName="number" required>
+          <input type="text" class="form-control" id="number" formControlName="number"
+          placeholder="0000 0000 0000 0000"
+          [mask]="'0000 0000 0000 0000'"
+          required>
         </div>
-        <div class="row">
-          <label for="expiry" class="form-label">Data de Expiração:</label>
-          <input type="text" class="form-control" id="expiry" formControlName="expiry" required>
+        <div class="row d-flex justify-content-between">
+          <div class="row col-7">
+            <label for="name" class="form-label">Nome do Cartão:</label>
+            <input type="text" class="form-control" id="name" formControlName="name"
+            placeholder="Fulano da Silva"
+            required>
+          </div>
+          <div class="row col-6">
+            <label for="expiry" class="form-label">Data de Expiração:</label>
+            <input type="date" class="form-control" id="expiry" formControlName="expiry" required>
+          </div>
         </div>
         <div class="row">
           <label for="cvc" class="form-label">Codigo de Verificação:</label>
-          <input type="text" class="form-control" id="cvc" formControlName="cvc" required>
+          <input type="text" class="form-control" id="cvc" formControlName="cvc"
+          placeholder="000"
+          [mask]="'000'"
+          required>
         </div>
         <div class="row">
           <label for="flag" class="form-label">Bandeira do Cartão:</label>
@@ -296,8 +306,8 @@
         </div>
 
       </section>
-      <div>
-        <button class="btn btn-success">Criar</button>
+      <div class="col-3 d-flex justify-content-between">
+        <button class="btn btn-success" (click)="createCreditCard()">Criar</button>
         <button class="btn btn-danger">Cancelar</button>
       </div>
     </ng-container>
@@ -330,7 +340,7 @@
               <input type="text" class="form-control" id="cvc" formControlName="cvc" required>
             </div>
           </form>
-      </div>
+        </div>
       </section>
     </ng-container>
   </div>

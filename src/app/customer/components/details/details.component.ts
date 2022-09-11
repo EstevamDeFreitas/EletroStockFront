@@ -16,6 +16,8 @@ import { CustomerChangePasswordDTO } from 'src/app/access/models/customerChangeP
 import { CardFlagService } from 'src/app/access/services/card-flag/card-flag.service';
 import { CardFlagDTO } from 'src/app/access/models/cardFlagDTO.model';
 
+
+
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
@@ -56,13 +58,12 @@ export class DetailsComponent implements OnInit {
     public creditCardService: CreditCardService, private cardFlagService : CardFlagService) { }
 
   ngOnInit(): void {
-    //this.getCreditCard();
     this.getCustomerInfo();
     this.getAvailablesCardFlags();
   }
 
   getAvailablesCardFlags(){
-    this.cardFlagService.getCardFlags().subscribe({
+    this.cardFlagService.getAllCardFlags().subscribe({
       next: (res)=>{
         this.availableCardFlags = res.data;
       }
@@ -110,8 +111,16 @@ export class DetailsComponent implements OnInit {
     });
   }
 
-  createCreditCard(creditCard: CreditCardDTO) {
+  createCreditCard() {
+    let newCreditCard = new CreditCardDTO();
+    newCreditCard.ownerName = this.formCreditCard.controls['name'].value;
+    newCreditCard.cardNumber = this.formCreditCard.controls['number'].value;
+    newCreditCard.securityCode = this.formCreditCard.controls['cvc'].value;
+    newCreditCard.cardFlag = this.formCreditCard.controls['cardFlagId'].value;
+    // newCreditCard.cardFlagId =
+    newCreditCard.customerId = AccessService.getUser()!;
 
+    this.creditCardService.createCustomerCreditCard(newCreditCard).subscribe();
   }
 
   createFormCreditCard(creditCard: CreditCardDTO) {
@@ -138,13 +147,6 @@ export class DetailsComponent implements OnInit {
     });
   }
 
-  getCreditCard() {
-    this.creditCardService.getCustomerCreditCards().subscribe(res => {
-      this.creditCard = res.data!;
-      this.afterReceivingCreditCards();
-    });
-  }
-
   getCustomerInfo(){
     this.isCustomerLoading = true;
     this.customerService.getCustomerDetail().subscribe(res => {
@@ -152,10 +154,6 @@ export class DetailsComponent implements OnInit {
       this.afterReceivingCustomerInfo();
       this.isCustomerLoading = false;
     });
-  }
-
-  afterReceivingCreditCards() {
-
   }
 
   afterReceivingCustomerInfo() {

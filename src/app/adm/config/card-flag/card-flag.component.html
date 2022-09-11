@@ -1,0 +1,46 @@
+<div>
+  <ng-container>
+    <div class="d-flex justify-content-between">
+      <h3>Bandeiras do Cartão</h3>
+      <button class="btn btn-outline-success" (click)="newFlag()">Nova Bandeira</button>
+    </div>
+    <section class="mt-3" *ngIf="isCardFlagCreate">
+      <form class="d-flex justify-content-between" [formGroup]="formCardFlag">
+        <div class="d-flex gap">
+          <label for="name" class="form-label">Nome:</label>
+          <input
+            class="form-control"
+            type="text"
+            id="name"
+            formControlName="name"
+            placeholder="Card Flag"
+          >
+        </div>
+        <button
+          class="btn btn-outline-success"
+          (click)="createCreditCardFlag(formCardFlag)"
+          > Salvar
+        </button>
+      </form>
+    </section>
+  </ng-container>
+  <ng-container *ngFor="let cardFlag of formCardFlagList; let i = index">
+    <form [formGroup]="cardFlag">
+      <section class="mt-2 d-flex justify-content-between">
+        <div>
+          <label for="name" class="form-label"></label>
+          <input
+          type="text"
+          id="name"
+          formControlName="name"
+          [ngClass]="cardFlag.controls['cardFlagEdit'].value? 'form-control': 'form-control-plaintext'">
+        </div>
+        <div class="d-flex gap">
+          <button *ngIf="cardFlag.controls['cardFlagEdit'].value" class="btn btn-outline-success" (click)="updateCardFlag(cardFlag)">Salvar</button>
+          <button class="btn btn-outline-warning" (click)="editCardFlag(i)">Editar</button>
+          <button class="btn btn-outline-danger" (click)="deleteCardFlag(cardFlag)">Remover</button>
+        </div>
+      </section>
+    </form>
+  </ng-container>
+</div>

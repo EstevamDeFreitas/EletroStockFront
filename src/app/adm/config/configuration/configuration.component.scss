@@ -1,0 +1,15 @@
+.sides{
+  display: grid;
+  grid-template-columns: 15rem 1fr;
+}
+
+.link-display{
+  display: grid;
+  padding: 1rem;
+  gap: 1rem;
+  max-height: 10rem;
+}
+
+.btn-text-display{
+  text-align: inherit;
+}

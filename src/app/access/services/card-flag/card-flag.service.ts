@@ -12,7 +12,7 @@ export class CardFlagService {
   private readonly API = environment.API_URL + "/CardFlag";
   constructor(private http: HttpClient) { }
 
-  getCardFlags(){
+  getAllCardFlags(){
     return this.http.get<Response<CardFlagDTO[]>>(this.API);
   }
 
@@ -24,8 +24,8 @@ export class CardFlagService {
     return this.http.put<Response<any>>(this.API, cardFlag);
   }
 
-  createCardFlag(flagName : string){
-    return this.http.post<Response<any>>(this.API, flagName);
+  createCardFlag(cardName : string){
+    return this.http.post<Response<any>>(this.API, cardName);
   }
 
   deleteCardFlag(id : string){
