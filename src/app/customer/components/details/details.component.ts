@@ -31,13 +31,16 @@ export class DetailsComponent implements OnInit {
   formCreditCards: FormGroup[] = [];
   formCreditCard: FormGroup = new FormGroup({});
   creditCard: CreditCardDTO[] = [];
+  newCreditCard: CreditCardDTO = new CreditCardDTO();
+  availableCardFlags : CardFlagDTO[] = [];
+  cardFlag: CardFlagDTO = new CardFlagDTO();
   isCreditCardCreating: boolean = false;
+  isCreditCardEdit: boolean = false;
 
   customer: CustomerDTO = new CustomerDTO();
   customerPassword: CustomerChangePasswordDTO = new CustomerChangePasswordDTO();
   isEdit: boolean = false;
   isEditPassword: boolean = false;
-
 
   formAddress : FormGroup = new FormGroup({});
   isAddressEditing : boolean = false;
@@ -51,7 +54,7 @@ export class DetailsComponent implements OnInit {
 
   isCustomerLoading : boolean = false;
 
-  availableCardFlags : CardFlagDTO[] = [];
+
 
   constructor(private formbuilder: FormBuilder, public datePipe: DatePipe,
     private customerService: CustumerService, private addressService: AddressService,
@@ -65,7 +68,12 @@ export class DetailsComponent implements OnInit {
   getAvailablesCardFlags(){
     this.cardFlagService.getAllCardFlags().subscribe({
       next: (res)=>{
-        this.availableCardFlags = res.data;
+        res.data.forEach(card => {
+          let cardFlag = new CardFlagDTO();
+          cardFlag = card;
+          this.availableCardFlags.push(cardFlag);
+        });
+
       }
     })
   }
@@ -111,25 +119,63 @@ export class DetailsComponent implements OnInit {
     });
   }
 
-  createCreditCard() {
-    let newCreditCard = new CreditCardDTO();
-    newCreditCard.ownerName = this.formCreditCard.controls['name'].value;
-    newCreditCard.cardNumber = this.formCreditCard.controls['number'].value;
-    newCreditCard.securityCode = this.formCreditCard.controls['cvc'].value;
-    newCreditCard.cardFlag = this.formCreditCard.controls['cardFlagId'].value;
-    // newCreditCard.cardFlagId =
-    newCreditCard.customerId = AccessService.getUser()!;
+  setCardFlag() {
+    this.newCreditCard.cardFlag = this.cardFlag.name;
+    this.newCreditCard.cardFlagId = this.cardFlag.id;
+  }
 
-    this.creditCardService.createCustomerCreditCard(newCreditCard).subscribe();
+  createCreditCard(formCreditCard: FormGroup, ) {
+    this.newCreditCard.ownerName = formCreditCard.controls['name'].value;
+    this.newCreditCard.cardNumber = formCreditCard.controls['number'].value;
+    this.newCreditCard.securityCode = formCreditCard.controls['cvc'].value;
+    this.newCreditCard.customerId = AccessService.getUser()!;
+
+    this.creditCardService.createCustomerCreditCard(this.newCreditCard).subscribe(res => {
+      if(res) {
+        this.formCreditCard = new FormGroup({});
+        this.newCreditCard = new CreditCardDTO();
+        this.isCreditCardCreating = false;
+        this.getCustomerInfo();
+      }
+    });
+  }
+
+  createCancel() {
+    this.isCreditCardCreating = false;
+    this.formCreditCard = new FormGroup({});
+  }
+
+  editCreditCard(i: number) {
+    this.formCreditCards[i].controls['credtCardEdit'].setValue(true);
+  }
+
+  updateCreditCard(card: FormGroup) {
+    this.newCreditCard.id = card.controls['id'].value;
+    this.newCreditCard.ownerName = card.controls['name'].value;
+    this.newCreditCard.cardNumber = card.controls['number'].value;
+    this.newCreditCard.securityCode = card.controls['cvc'].value;
+    this.newCreditCard.cardFlag = card.controls['cardFlag'].value;
+    this.newCreditCard.cardFlagId = card.controls['cardFlagId'].value;
+    this.newCreditCard.customerId = AccessService.getUser()!;
+    this.creditCardService.updateCustomerCreditCard(this.newCreditCard).subscribe(res =>{})
+  }
+
+  deleteCreditCard(card: FormGroup) {
+    this.creditCardService.deleteCustomerCreditCard(card.controls['id'].value).subscribe(res => {
+
+    })
   }
 
   createFormCreditCard(creditCard: CreditCardDTO) {
     return this.formbuilder.group({
+      id: [creditCard.id],
       name: [creditCard.ownerName],
       number: [creditCard.cardNumber],
       expiry: [''],
       cvc: [creditCard.securityCode],
-      cardFlagId : [creditCard.id]
+      cardFlag: [creditCard.cardFlag],
+      cardFlagId: [creditCard.cardFlagId],
+      credtCardEdit: [this.isCreditCardEdit]
     })
   }
 
@@ -147,10 +193,11 @@ export class DetailsComponent implements OnInit {
     });
   }
 
-  getCustomerInfo(){
+  getCustomerInfo() {
     this.isCustomerLoading = true;
     this.customerService.getCustomerDetail().subscribe(res => {
       this.customer = res.data;
+      console.log('customer', this.customer)
       this.afterReceivingCustomerInfo();
       this.isCustomerLoading = false;
     });
@@ -185,7 +232,6 @@ export class DetailsComponent implements OnInit {
     let newAddress = new AdressDTO();
 
     //TODO adicionar validação
-
     if(this.formAddress.valid){
       newAddress.addressType = this.formAddress.controls['addressType'].value;
       newAddress.streetType = this.formAddress.controls['streetType'].value;
@@ -330,7 +376,6 @@ export class DetailsComponent implements OnInit {
   }
 
   saveEditAccount(formAccount: FormGroup, formPassword: FormGroup) {
-
     if (this.isEditPassword && this.isEdit) {
       if (formAccount.valid && formPassword.valid) {
         // edit account

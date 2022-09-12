@@ -21,4 +21,12 @@ export class CreditCardService {
     return this.http.post<Response<any>>(this.API, creditCard);
   }
 
+  updateCustomerCreditCard(creditCard: CreditCardDTO) {
+    return this.http.put<Response<any>>(this.API, creditCard);
+  }
+
+  deleteCustomerCreditCard(cardId: string) {
+    return this.http.delete<Response<any>>(this.API + '/' + cardId);
+  }
+
 }

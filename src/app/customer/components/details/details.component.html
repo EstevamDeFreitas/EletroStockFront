@@ -263,7 +263,7 @@
       </div>
     </ng-container>
     <ng-container *ngIf="isCreditCardCreating">
-      <form [formGroup]="formCreditCard" class="mb-3 w-50 card p-3">
+      <form [formGroup]="formCreditCard" class="mb-3 w-50 card mt-2 p-3">
         <div class="row">
           <label for="number" class="form-label">Numero do Cartão:</label>
           <input type="text" class="form-control" id="number" formControlName="number"
@@ -292,54 +292,88 @@
         </div>
         <div class="row">
           <label for="flag" class="form-label">Bandeira do Cartão:</label>
-          <select name="flag" id="flag" class="form-select" formControlName="cardFlagId" required>
-            <ng-container *ngFor="let card of availableCardFlags">
-              <option [value]="card.id">{{card.name}}</option>
-            </ng-container>
+          <select [(ngModel)]="cardFlag" [ngModelOptions]="{standalone: true}" name="flag" id="flag" class="form-select" (change)="setCardFlag()" required>
+            <option [ngValue]="cardFlag" *ngFor="let cardFlag of availableCardFlags; let i = index">{{cardFlag.name}}</option>
           </select>
         </div>
       </form>
-      <section class="w-50">
+      <section class="w-50 mt-2">
         <div>
           <ng-credit-card [name]="formCreditCard.controls['name'].value" [number]="formCreditCard.controls['number'].value"
           [cvc]="formCreditCard.controls['cvc'].value" [expiry]="formCreditCard.controls['expiry'].value"></ng-credit-card>
         </div>
-
       </section>
-      <div class="col-3 d-flex justify-content-between">
-        <button class="btn btn-success" (click)="createCreditCard()">Criar</button>
-        <button class="btn btn-danger">Cancelar</button>
+      <div class="col-3 mb-3 d-flex justify-content-between">
+        <button class="btn btn-success" (click)="createCreditCard(formCreditCard)">Criar</button>
+        <button class="btn btn-danger" (click)="createCancel()">Cancelar</button>
       </div>
     </ng-container>
 
     <ng-container>
-      <section *ngIf="formCreditCards">
-        <div *ngFor="let card of formCreditCards">
-          <ng-credit-card [name]="card.controls['name'].value" [number]="card.controls['number'].value"
-            [cvc]="card.controls['cvc'].value" [expiry]="card.controls['expiry'].value">
-          </ng-credit-card>
-          <div>
-            <button>Editar</button>
-            <button>Deletar</button>
-          </div>
-          <form [formGroup]="card">
-            <div class="row">
-              <label for="name" class="form-label">Nome do Cartão:</label>
-              <input type="text" class="form-control" id="name" formControlName="name" required>
-            </div>
+      <section *ngIf="formCreditCards" >
+        <div class="row mb-3" *ngFor="let card of formCreditCards; let i = index">
+          <form *ngIf="card.controls['credtCardEdit'].value" [formGroup]="card" class="mb-3 w-50 card p-3">
             <div class="row">
               <label for="number" class="form-label">Nnumero do Cartão:</label>
-              <input type="text" class="form-control" id="number" formControlName="number" required>
+              <input
+                type="text"
+                class="form-control"
+                id="number"
+                formControlName="number"
+                required
+              >
             </div>
-            <div class="row">
-              <label for="expiry" class="form-label">Data de Expiração:</label>
-              <input type="text" class="form-control" id="expiry" formControlName="expiry" required>
+            <div class="row d-flex justify-content-between">
+              <div class="row col-7">
+                <label for="name" class="form-label">Nome do Cartão:</label>
+                <input
+                  type="text"
+                  id="name"
+                  formControlName="name"
+                  class="form-control"
+                  required
+                >
+              </div>
+              <div class="row col-6">
+                <label for="expiry" class="form-label">Data de Expiração:</label>
+                <input
+                  type="text"
+                  id="expiry"
+                  formControlName="expiry"
+                  class="form-control"
+                  required
+                >
+              </div>
             </div>
             <div class="row">
               <label for="cvc" class="form-label">Codigo de Verificação:</label>
-              <input type="text" class="form-control" id="cvc" formControlName="cvc" required>
+              <input
+                type="password"
+                id="cvc"
+                formControlName="cvc"
+                class="form-control"
+                required>
+            </div>
+            <div class="row">
+              <label for="flag" class="form-label">Bandeira do Cartão:</label>
+              <select [(ngModel)]="cardFlag" [ngModelOptions]="{standalone: true}" name="flag" id="flag" class="form-select" (change)="setCardFlag()" required>
+                <option [ngValue]="cardFlag" *ngFor="let cardFlag of availableCardFlags; let i = index">{{cardFlag.name}}</option>
+              </select>
             </div>
           </form>
+          <div class="w-50">
+            <ng-credit-card [name]="card.controls['name'].value" [number]="card.controls['number'].value"
+              [cvc]="card.controls['cvc'].value" [expiry]="card.controls['expiry'].value">
+            </ng-credit-card>
+          </div>
+          <div class="col-3 d-flex justify-content-between w-50">
+            <button *ngIf="card.controls['credtCardEdit'].value"
+              class="btn btn-outline-success"
+              (click)="updateCreditCard(card)"> Salvar Edição
+            </button>
+            <button class="btn btn-outline-warning" (click)="editCreditCard(i)">Editar</button>
+            <button class="btn btn-outline-danger" (click)="deleteCreditCard(card)">Deletar</button>
+          </div>
         </div>
       </section>
     </ng-container>
