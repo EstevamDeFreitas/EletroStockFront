@@ -131,7 +131,7 @@ export class DetailsComponent implements OnInit {
     this.newCreditCard.customerId = AccessService.getUser()!;
 
     this.creditCardService.createCustomerCreditCard(this.newCreditCard).subscribe(res => {
-      if(res) {
+      if(res.message == "Credit Card Created") {
         this.formCreditCard = new FormGroup({});
         this.newCreditCard = new CreditCardDTO();
         this.isCreditCardCreating = false;
@@ -157,12 +157,22 @@ export class DetailsComponent implements OnInit {
     this.newCreditCard.cardFlag = card.controls['cardFlag'].value;
     this.newCreditCard.cardFlagId = card.controls['cardFlagId'].value;
     this.newCreditCard.customerId = AccessService.getUser()!;
-    this.creditCardService.updateCustomerCreditCard(this.newCreditCard).subscribe(res =>{})
+    this.creditCardService.updateCustomerCreditCard(this.newCreditCard).subscribe(res =>{
+      if(res.message === "Credit Card Updated") {
+        this.formCreditCard = new FormGroup({});
+        this.newCreditCard = new CreditCardDTO();
+        this.getCustomerInfo();
+      }
+    })
   }
 
   deleteCreditCard(card: FormGroup) {
     this.creditCardService.deleteCustomerCreditCard(card.controls['id'].value).subscribe(res => {
-
+      if(res.message === "Credit Card Deleted") {
+        this.formCreditCard = new FormGroup({});
+        this.newCreditCard = new CreditCardDTO();
+        this.getCustomerInfo();
+      }
     })
   }
 
@@ -197,7 +207,6 @@ export class DetailsComponent implements OnInit {
     this.isCustomerLoading = true;
     this.customerService.getCustomerDetail().subscribe(res => {
       this.customer = res.data;
-      console.log('customer', this.customer)
       this.afterReceivingCustomerInfo();
       this.isCustomerLoading = false;
     });
