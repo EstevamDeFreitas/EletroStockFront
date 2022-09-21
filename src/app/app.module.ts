@@ -1,3 +1,4 @@
+import { ProductComponent } from './products/product/product.component';
 import { CuponsConfigComponent } from './adm/config/cupons-config/cupons-config.component';
 import { CardFlagComponent } from './adm/config/card-flag/card-flag.component';
 import { CategoriesInativationsComponent } from './adm/config/categories-inativations/categories-inativations.component';
@@ -42,7 +43,8 @@ import { AccessInterceptor } from './access/services/access/access.interceptor';
     ProductsCategoriesComponent,
     CuponsConfigComponent,
     CategoriesInativationsComponent,
-    CardFlagComponent
+    CardFlagComponent,
+    ProductComponent,
   ],
   imports: [
     BrowserModule,

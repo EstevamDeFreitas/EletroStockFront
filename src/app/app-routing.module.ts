@@ -1,3 +1,4 @@
+import { ProductComponent } from './products/product/product.component';
 import { CuponsConfigComponent } from './adm/config/cupons-config/cupons-config.component';
 import { CategoriesInativationsComponent } from './adm/config/categories-inativations/categories-inativations.component';
 import { PriceCategoriesComponent } from './adm/config/price-categories/price-categories.component';
@@ -27,7 +28,8 @@ const routes: Routes = [
     {path:'cupons-config', component:CuponsConfigComponent},
     {path:'price-categories', component:PriceCategoriesComponent},
     {path:'categories-inativations', component:CategoriesInativationsComponent},
-  ]}
+  ]},
+  {path:'products', component:ProductComponent},
 ];
 
 @NgModule({
