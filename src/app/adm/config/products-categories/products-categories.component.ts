@@ -25,6 +25,7 @@ export class ProductsCategoriesComponent implements OnInit {
   getAllCategories() {
     this.categoriesService.getCategories().subscribe(res => {
       if(res.message === "Categories Found") {
+        this.formCategoryList = []
         res.data.forEach(category => {
           this.formCategoryList.push(this.createCategoryForm(category));
         })
@@ -62,7 +63,7 @@ export class ProductsCategoriesComponent implements OnInit {
   }
 
   editCategory(i: number) {
-    this.formCategoryList[i].controls['isCategory'].setValue(true);
+    this.formCategoryList[i].controls['categoryEdit'].setValue(true);
   }
 
   updateCategory(formCategory: FormGroup) {
