@@ -1,3 +1,5 @@
+import { CategoryDTO } from 'src/app/access/models/categoryDTO.model';
+import { CategoriesService } from './../../access/services/categories/categories.service';
 import { ProductService } from './../../access/services/product/product.service';
 import { PriceGroupService } from './../../access/services/pricre/priceGroup.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -8,18 +10,21 @@ import { ProductDTO } from 'src/app/access/models/productDTO.model';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+  styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
 
   product: ProductDTO = new ProductDTO();
   formPriceGroup: FormGroup = new FormGroup({});
   formPriceGroupList: FormGroup[] = [];
+  category: CategoryDTO[] = [];
+  priceGroup: PriceGroupDTO[] = [];
 
   isProductCreate: boolean = false;
   isPoductEdit: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private productService: ProductService,) { }
+  constructor(private formBuilder: FormBuilder, private productService: ProductService,
+    private productCategoryService: CategoriesService, private priceGroupService: PriceGroupService) { }
 
   ngOnInit() {
     this.getAllProducts();
@@ -35,6 +40,18 @@ export class ProductComponent implements OnInit {
     })
   }
 
+  getAllCategories() {
+    this.productCategoryService.getCategories().subscribe(res => {
+      this.category = res.data;
+    })
+  }
+
+  getAllPriceCategories() {
+    this.priceGroupService.getPriceGroups().subscribe(res => {
+      this.priceGroup = res.data;
+    })
+  }
+
   createForm(product: ProductDTO) {
     return this.formBuilder.group({
      id: [product.id],
@@ -42,20 +59,18 @@ export class ProductComponent implements OnInit {
      name: [product.name],
      description: [product.description],
      priceGroupId: [product.priceGroupId],
+     categories: [this.category],
+     priceGroups: [this.priceGroup],
      productEdit: [this.isPoductEdit]
     });
-
-    /*
-      public inactiveReasonId: string;
-      public inactiveReason: InactiveReasonDTO;
-      public productCategories: ProductCategoriesDTO[];
-      public productImages: ProductImageDTO[];
-    */
 
   }
 
   newProduct() {
     this.product = new ProductDTO();
+    this.getAllCategories();
+    this.getAllPriceCategories();
+
     this.formPriceGroup = this.createForm(this.product);
     this.isProductCreate = true;
   }

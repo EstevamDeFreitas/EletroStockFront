@@ -22,19 +22,24 @@
               class="form-control"
               type="text"
               id="code"
-              formControlName=""
+              formControlName="code"
               placeholder="000000"
             >
           </div>
           <div class="col-3">
             <label for="category" class="form-label">Categoria:</label>
-            <input
-              class="form-control"
+            <!-- <select
               type="text"
               id="category"
               formControlName=""
               placeholder="Refrigerador"
             >
+
+            </select> -->
+
+            <select name="flag" id="flag" class="form-select" required>
+              <option *ngFor="let category of formPriceGroup.controls['categories'].value; let i = index">{{category.name}}</option>
+            </select>
           </div>
           <div class="col-3">
             <label for="cust" class="form-label">Categoria de precificação:</label>
