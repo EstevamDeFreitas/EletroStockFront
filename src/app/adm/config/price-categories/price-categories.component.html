@@ -6,7 +6,7 @@
     </div>
     <section class="mt-3" *ngIf="isPriceCategoryCreate">
       <form class="d-flex justify-content-between" [formGroup]="formPriceCategory">
-        <div class="d-flex gap">
+        <div class="gap">
           <label for="name" class="form-label">Nome:</label>
           <input
             class="form-control"
@@ -16,8 +16,28 @@
             placeholder="Nome da Categoria"
           >
         </div>
+        <div class="gap">
+          <label for="profitMargin" class="form-label">Percentual sobre base:</label>
+          <input
+            class="form-control"
+            type="text"
+            id="profitMargin"
+            formControlName="profitMargin"
+            placeholder="x %"
+          >
+        </div>
+        <div class="gap">
+          <label for="description" class="form-label">Descrição:</label>
+          <input
+            class="form-control"
+            type="text"
+            id="description"
+            formControlName="description"
+            placeholder="Muito barato"
+          >
+        </div>
         <button
-          class="btn btn-outline-success"
+          class="btn btn-outline-success btn-width"
           (click)="createPriceCategory(formPriceCategory)"
           > Salvar
         </button>
@@ -34,6 +54,26 @@
           id="name"
           formControlName="name"
           [ngClass]="priceCategory.controls['priceCategoryEdit'].value? 'form-control': 'form-control-plaintext'">
+        </div>
+        <div class="d-flex gap">
+          <label for="profitMargin" class="form-label">Percentual sobre base:</label>
+          <input
+            [ngClass]="priceCategory.controls['priceCategoryEdit'].value? 'form-control': 'form-control-plaintext'"
+            type="text"
+            id="profitMargin"
+            formControlName="profitMargin"
+            placeholder="x %"
+          >
+        </div>
+        <div class="d-flex gap">
+          <label for="description" class="form-label">Descrição:</label>
+          <input
+            [ngClass]="priceCategory.controls['priceCategoryEdit'].value? 'form-control': 'form-control-plaintext'"
+            type="text"
+            id="description"
+            formControlName="description"
+            placeholder="Muito barato"
+          >
         </div>
         <div class="d-flex gap">
           <button *ngIf="priceCategory.controls['priceCategoryEdit'].value" class="btn btn-outline-success" (click)="updateCategory(priceCategory)">Salvar</button>
