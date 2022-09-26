@@ -8,8 +8,8 @@ export class ProductDTO {
   public name: string;
   public description: string;
   public priceGroupId: string;
-  public inactiveReasonId: string;
-  public inactiveReason: InactiveReasonDTO;
+  public inactiveReasonId?: string;
+  public inactiveReason?: InactiveReasonDTO;
   public productCategories: ProductCategoriesDTO[];
   public productImages: ProductImageDTO[];
 

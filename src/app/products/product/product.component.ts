@@ -7,6 +7,8 @@ import { PriceGroupDTO } from './../../access/models/priceGroupDTO.model';
 import { Component, OnInit } from '@angular/core';
 import { ProductDTO } from 'src/app/access/models/productDTO.model';
 import { ProductCategoriesDTO } from 'src/app/access/models/productCategoriesDTO.model';
+import { InactiveReasonDTO } from 'src/app/access/models/inactiveReasonDTO.model';
+import { ProductImageDTO } from 'src/app/access/models/ProductImageDTO.model';
 
 @Component({
   selector: 'app-product',
@@ -19,7 +21,7 @@ export class ProductComponent implements OnInit {
   formPriceGroup: FormGroup = new FormGroup({});
   formPriceGroupList: FormGroup[] = [];
 
-  priceGroup: PriceGroupDTO[] = [];
+  priceGroups: PriceGroupDTO[] = [];
   price: PriceGroupDTO = new PriceGroupDTO();
 
   category: CategoryDTO[] = [];
@@ -53,7 +55,7 @@ export class ProductComponent implements OnInit {
 
   getAllPriceCategories() {
     this.priceGroupService.getPriceGroups().subscribe(res => {
-      this.priceGroup = res.data;
+      this.priceGroups = res.data;
     })
   }
 
@@ -88,14 +90,14 @@ export class ProductComponent implements OnInit {
     this.selectedCategory.forEach((x, index) =>{
       this.product.productCategories.push(new ProductCategoriesDTO())
 
+      this.product.productCategories[index].categoryId = x.id;
+
       this.product.productCategories[index].category.id = x.id;
       this.product.productCategories[index].category.name = x.name;
       this.product.productCategories[index].category.description = x.description;
     })
 
     this.product.priceGroupId = formPriceGroup.controls['priceGroupId'].value;
-
-    console.log('product', this.product);
 
     this.productService.CreateProduct(this.product).subscribe();
 
