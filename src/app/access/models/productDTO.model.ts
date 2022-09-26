@@ -9,6 +9,7 @@ export class ProductDTO {
   public description: string;
   public priceGroupId: string;
   public inactiveReasonId: string;
+  public price : number;
   public inactiveReason: InactiveReasonDTO;
   public productCategories: ProductCategoriesDTO[];
   public productImages: ProductImageDTO[];
@@ -20,6 +21,9 @@ export class ProductDTO {
     this.description = '';
     this.priceGroupId = '00000000-0000-0000-0000-000000000000';
     this.inactiveReasonId = '00000000-0000-0000-0000-000000000000';
+    this.priceGroupId = '';
+    this.inactiveReasonId = '';
+    this.price = 0;
     this.inactiveReason = new InactiveReasonDTO();
     this.productCategories = [];
     this.productImages = [];

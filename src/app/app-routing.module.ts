@@ -13,6 +13,8 @@ import { AccountComponent } from './customer/components/account/account.componen
 import { CuponsComponent } from './customer/components/cupons/cupons.component';
 import { DetailsComponent } from './customer/components/details/details.component';
 import { PurchasesComponent } from './customer/components/purchases/purchases.component';
+import { ShoppingCartComponent } from './shopping-cart/components/shopping-cart/shopping-cart.component';
+import { CartComponent } from './shopping-cart/components/cart/cart.component';
 
 const routes: Routes = [
   {path:'login', component:LoginComponent},
@@ -30,6 +32,7 @@ const routes: Routes = [
     {path:'categories-inativations', component:CategoriesInativationsComponent},
   ]},
   {path:'products', component:ProductComponent},
+  {path:'cart', component:ShoppingCartComponent}
 ];
 
 @NgModule({
