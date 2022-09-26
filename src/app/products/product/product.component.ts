@@ -37,7 +37,7 @@ export class ProductComponent implements OnInit {
 
   getAllProducts() {
     this.productService.getProducts().subscribe(res => {
-      if(res.message == "Price Group Found") {
+      if(res.message == "Products Found") {
         res.data.forEach(product => {
           this.formPriceGroupList.push(this.createForm(product));
         });
@@ -86,18 +86,18 @@ export class ProductComponent implements OnInit {
     this.product.code = formPriceGroup.controls['code'].value;
 
     this.selectedCategory.forEach((x, index) =>{
-      this.product.productCategories.push(new ProductCategoriesDTO())
+      let productCategory = new ProductCategoriesDTO();
 
-      this.product.productCategories[index].category.id = x.id;
-      this.product.productCategories[index].category.name = x.name;
-      this.product.productCategories[index].category.description = x.description;
+      productCategory.categoryId = x.id;
+
+      this.product.productCategories.push(productCategory);
     })
 
     this.product.priceGroupId = formPriceGroup.controls['priceGroupId'].value;
 
-    console.log('product', this.product);
+    this.productService.CreateProduct(this.product).subscribe(res => {
 
-    this.productService.CreateProduct(this.product).subscribe();
+    });
 
   }
 
