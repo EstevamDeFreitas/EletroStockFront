@@ -7,7 +7,7 @@ export class ProductCategoriesDTO {
 
   constructor() {
     this.productId = '00000000-0000-0000-0000-000000000000';
-    this.categoryId = '';
+    this.categoryId = '00000000-0000-0000-0000-000000000000';
     this.category = new CategoryDTO();
   }
 }

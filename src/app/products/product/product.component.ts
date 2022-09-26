@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { PriceGroupDTO } from './../../access/models/priceGroupDTO.model';
 import { Component, OnInit } from '@angular/core';
 import { ProductDTO } from 'src/app/access/models/productDTO.model';
+import { ProductCategoriesDTO } from 'src/app/access/models/productCategoriesDTO.model';
 
 @Component({
   selector: 'app-product',
@@ -85,7 +86,7 @@ export class ProductComponent implements OnInit {
     this.product.code = formPriceGroup.controls['code'].value;
 
     this.selectedCategory.forEach((x, index) =>{
-      this.product.productCategories[index].category = new CategoryDTO();
+      this.product.productCategories.push(new ProductCategoriesDTO())
 
       this.product.productCategories[index].category.id = x.id;
       this.product.productCategories[index].category.name = x.name;
@@ -93,6 +94,8 @@ export class ProductComponent implements OnInit {
     })
 
     this.product.priceGroupId = formPriceGroup.controls['priceGroupId'].value;
+
+    console.log('product', this.product);
 
     this.productService.CreateProduct(this.product).subscribe();
 
@@ -112,7 +115,6 @@ export class ProductComponent implements OnInit {
 
   setPriceGroup() {
     this.formPriceGroup.controls['priceGroupId'].setValue(this.price.id);
-    console.log(this.formPriceGroup.controls['priceGroupId'].value);
   }
 
   updateProduct(priceGroup: FormGroup) {
