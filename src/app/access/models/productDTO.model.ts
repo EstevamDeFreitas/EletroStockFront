@@ -18,8 +18,8 @@ export class ProductDTO {
     this.code = '';
     this.name = '';
     this.description = '';
-    this.priceGroupId = '';
-    this.inactiveReasonId = '';
+    this.priceGroupId = '00000000-0000-0000-0000-000000000000';
+    this.inactiveReasonId = '00000000-0000-0000-0000-000000000000';
     this.inactiveReason = new InactiveReasonDTO();
     this.productCategories = [];
     this.productImages = [];

@@ -17,8 +17,12 @@ export class ProductComponent implements OnInit {
   product: ProductDTO = new ProductDTO();
   formPriceGroup: FormGroup = new FormGroup({});
   formPriceGroupList: FormGroup[] = [];
-  category: CategoryDTO[] = [];
+
   priceGroup: PriceGroupDTO[] = [];
+  price: PriceGroupDTO = new PriceGroupDTO();
+
+  category: CategoryDTO[] = [];
+  selectedCategory: CategoryDTO[] = [];
 
   isProductCreate: boolean = false;
   isPoductEdit: boolean = false;
@@ -59,8 +63,7 @@ export class ProductComponent implements OnInit {
      name: [product.name],
      description: [product.description],
      priceGroupId: [product.priceGroupId],
-     categories: [this.category],
-     priceGroups: [this.priceGroup],
+     categories: [product.productCategories],
      productEdit: [this.isPoductEdit]
     });
 
@@ -76,11 +79,40 @@ export class ProductComponent implements OnInit {
   }
 
   createProduct(formPriceGroup: FormGroup) {
-    this.formPriceGroupList.push(formPriceGroup);
+
+    this.product.id = formPriceGroup.controls['id'].value;
+    this.product.name = formPriceGroup.controls['name'].value;
+    this.product.code = formPriceGroup.controls['code'].value;
+
+    this.selectedCategory.forEach((x, index) =>{
+      this.product.productCategories[index].category = new CategoryDTO();
+
+      this.product.productCategories[index].category.id = x.id;
+      this.product.productCategories[index].category.name = x.name;
+      this.product.productCategories[index].category.description = x.description;
+    })
+
+    this.product.priceGroupId = formPriceGroup.controls['priceGroupId'].value;
+
+    this.productService.CreateProduct(this.product).subscribe();
+
   }
 
   editProduct(i: number) {
     this.formPriceGroupList[i].controls['productEdit'].setValue(true);
+  }
+
+  setCategory(i: number, e: any) {
+    if (e.target.checked) {
+      this.selectedCategory.push(this.category[i]);
+    } else {
+      this.selectedCategory.splice(i, 1);
+    }
+  }
+
+  setPriceGroup() {
+    this.formPriceGroup.controls['priceGroupId'].setValue(this.price.id);
+    console.log(this.formPriceGroup.controls['priceGroupId'].value);
   }
 
   updateProduct(priceGroup: FormGroup) {
