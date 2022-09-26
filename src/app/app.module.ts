@@ -25,6 +25,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CustomValidators } from './shared/custom-validators';
 import { DatePipe } from '@angular/common';
 import { AccessInterceptor } from './access/services/access/access.interceptor';
+import { ShoppingCartComponent } from './shopping-cart/components/shopping-cart/shopping-cart.component';
+import { CartComponent } from './shopping-cart/components/cart/cart.component';
 
 
 
@@ -45,6 +47,8 @@ import { AccessInterceptor } from './access/services/access/access.interceptor';
     CategoriesInativationsComponent,
     CardFlagComponent,
     ProductComponent,
+    ShoppingCartComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,
