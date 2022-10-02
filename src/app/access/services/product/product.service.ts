@@ -24,4 +24,8 @@ export class ProductService {
   CreateProduct(product: ProductDTO) {
     return this.http.post<Response<any>>(this.API, product);
   }
+
+  updateProduct(product : ProductDTO){
+    return this.http.put<any>(this.API, product);
+  }
 }

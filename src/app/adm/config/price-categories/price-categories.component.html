@@ -55,7 +55,7 @@
           formControlName="name"
           [ngClass]="priceCategory.controls['priceCategoryEdit'].value? 'form-control': 'form-control-plaintext'">
         </div>
-        <div class="d-flex gap">
+        <div class="gap">
           <label for="profitMargin" class="form-label">Percentual sobre base:</label>
           <input
             [ngClass]="priceCategory.controls['priceCategoryEdit'].value? 'form-control': 'form-control-plaintext'"
@@ -65,7 +65,7 @@
             placeholder="x %"
           >
         </div>
-        <div class="d-flex gap">
+        <div class="gap">
           <label for="description" class="form-label">Descrição:</label>
           <input
             [ngClass]="priceCategory.controls['priceCategoryEdit'].value? 'form-control': 'form-control-plaintext'"
@@ -77,8 +77,8 @@
         </div>
         <div class="d-flex gap">
           <button *ngIf="priceCategory.controls['priceCategoryEdit'].value" class="btn btn-outline-success" (click)="updateCategory(priceCategory)">Salvar</button>
-          <button class="btn btn-outline-warning" (click)="editPriceCategory(i)">Editar</button>
-          <button class="btn btn-outline-danger" (click)="deletePriceCategory(priceCategory)">Remover</button>
+          <button class="btn btn-width btn-outline-warning" (click)="editPriceCategory(i)">Editar</button>
+          <button class="btn btn-width btn-outline-danger" (click)="deletePriceCategory(priceCategory)">Remover</button>
         </div>
       </section>
     </form>

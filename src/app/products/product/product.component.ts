@@ -20,6 +20,7 @@ export class ProductComponent implements OnInit {
   product: ProductDTO = new ProductDTO();
   formPriceGroup: FormGroup = new FormGroup({});
   formPriceGroupList: FormGroup[] = [];
+  products : ProductDTO[] = [];
 
   priceGroups: PriceGroupDTO[] = [];
   price: PriceGroupDTO = new PriceGroupDTO();
@@ -28,18 +29,22 @@ export class ProductComponent implements OnInit {
   selectedCategory: CategoryDTO[] = [];
 
   isProductCreate: boolean = false;
-  isPoductEdit: boolean = false;
+  isProductEdit: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private productService: ProductService,
     private productCategoryService: CategoriesService, private priceGroupService: PriceGroupService) { }
 
   ngOnInit() {
     this.getAllProducts();
+    this.getAllCategories();
+    this.getAllPriceCategories();
   }
 
   getAllProducts() {
     this.productService.getProducts().subscribe(res => {
-      if(res.message == "Price Group Found") {
+      this.formPriceGroupList = []
+      this.products = res.data;
+      if(res.message == "Products Found") {
         res.data.forEach(product => {
           this.formPriceGroupList.push(this.createForm(product));
         });
@@ -66,41 +71,54 @@ export class ProductComponent implements OnInit {
      name: [product.name],
      description: [product.description],
      priceGroupId: [product.priceGroupId],
-     categories: [product.productCategories],
-     productEdit: [this.isPoductEdit]
+     categories: [product.productCategories]
     });
 
   }
 
   newProduct() {
     this.product = new ProductDTO();
-    this.getAllCategories();
-    this.getAllPriceCategories();
 
     this.formPriceGroup = this.createForm(this.product);
     this.isProductCreate = true;
+    this.isProductEdit = false;
   }
 
   createProduct(formPriceGroup: FormGroup) {
 
-    this.product.id = formPriceGroup.controls['id'].value;
-    this.product.name = formPriceGroup.controls['name'].value;
-    this.product.code = formPriceGroup.controls['code'].value;
+    this.productService.CreateProduct(this.generateProductFromForm(formPriceGroup)).subscribe(res => {
+      this.getAllProducts();
+      this.isProductCreate = false;
+    });
+
+  }
+
+  generateProductFromForm(formPriceGroup: FormGroup){
+    let product = new ProductDTO();
+
+    product.id = formPriceGroup.controls['id'].value;
+    product.name = formPriceGroup.controls['name'].value;
+    product.code = formPriceGroup.controls['code'].value;
+    product.description = formPriceGroup.controls['description'].value;
 
     this.selectedCategory.forEach((x, index) =>{
-      this.product.productCategories.push(new ProductCategoriesDTO())
+      let productCategory = new ProductCategoriesDTO();
 
-      this.product.productCategories[index].categoryId = x.id;
+      productCategory.categoryId = x.id;
 
-      this.product.productCategories[index].category.id = x.id;
-      this.product.productCategories[index].category.name = x.name;
-      this.product.productCategories[index].category.description = x.description;
+      product.productCategories.push(productCategory);
     })
 
-    this.product.priceGroupId = formPriceGroup.controls['priceGroupId'].value;
+    product.priceGroupId = formPriceGroup.controls['priceGroupId'].value;
 
-    this.productService.CreateProduct(this.product).subscribe();
+    return product;
+  }
 
+  selectEditProduct(product: ProductDTO){
+    this.formPriceGroup = this.createForm(product);
+    this.loadSelectedCategories(product);
+    this.isProductEdit = true;
+    this.isProductCreate = false;
   }
 
   editProduct(i: number) {
@@ -115,15 +133,24 @@ export class ProductComponent implements OnInit {
     }
   }
 
+  loadSelectedCategories(product:ProductDTO){
+    this.selectedCategory = [];
+    product.productCategories.forEach(cat => {
+
+    })
+  }
+
   setPriceGroup() {
     this.formPriceGroup.controls['priceGroupId'].setValue(this.price.id);
   }
 
-  updateProduct(priceGroup: FormGroup) {
+  updateProduct(product: FormGroup) {
+    this.productService.updateProduct(this.generateProductFromForm(product)).subscribe(res => {
 
+    });
   }
 
-  deleteProduct(product: FormGroup) {
+  deleteProduct(product: ProductDTO) {
 
   }
 

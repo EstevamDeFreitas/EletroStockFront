@@ -1,9 +1,9 @@
-<div class="container w-75 h-100">
+<div class="bg-white p-4 container w-100 h-100">
   <ng-container>
     <div class="d-flex justify-content-end">
       <button class="btn btn-success" (click)="newProduct()">Novo Produto</button>
     </div>
-    <section class="mt-3" *ngIf="isProductCreate">
+    <section class="mt-3" *ngIf="isProductCreate || isProductEdit">
       <form [formGroup]="formPriceGroup">
         <div class="col-12">
           <label for="name" class="form-label">Nome:</label>
@@ -37,8 +37,8 @@
           </div>
           <div class="col-3">
             <label for="priceGroups" class="form-label">Categoria de precificação:</label>
-            <select [(ngModel)]="price" [ngModelOptions]="{standalone: true}" name="flag" id="flag" class="form-select" (change)="setPriceGroup()" required>
-              <option [ngValue]="price" *ngFor="let price of priceGroups; let i = index">{{price.name}}</option>
+            <select formControlName="priceGroupId" name="flag" id="flag" class="form-select"required>
+              <option [ngValue]="price.id" *ngFor="let price of priceGroups; let i = index">{{price.name}}</option>
             </select>
           </div>
         </div>
@@ -49,69 +49,25 @@
             type="text"
             id="manufacturer"
             placeholder="Produtos genéricos LTDA"
+            formControlName="description"
           >
         </div>
-        <button
-
-          class="btn btn-outline-success mt-2"
-          (click)="createProduct(formPriceGroup)"
-          > Salvar
-        </button>
+        <button *ngIf="isProductCreate" class="btn btn-outline-success mt-2" (click)="createProduct(formPriceGroup)"> Criar</button>
+        <button *ngIf="isProductEdit" class="btn btn-outline-success mt-2" (click)="updateProduct(formPriceGroup)"> Editar</button>
+        <button class="btn btn-outline-danger mt-2" (click)="isProductCreate = false; isProductEdit = false;"> Cancelar</button>
       </form>
     </section>
   </ng-container>
 
-  <ng-container *ngFor="let priceGroup of formPriceGroupList; let i = index">
-    <form [formGroup]="priceGroup">
-      <section class="mt-2 d-flex justify-content-between">
-        <div>
-          <input
-          type="text"
-          id="name"
-          formControlName="name"
-          [ngClass]="priceGroup.controls['productEdit'].value? 'form-control': 'form-control-plaintext'">
-        </div>
-        <div class="d-flex justify-content-between">
-          <div class="col-3">
-            <input
-              [ngClass]="priceGroup.controls['productEdit'].value? 'form-control': 'form-control-plaintext'"
-              type="text"
-              id="code"
-              formControlName="code"
-            >
-          </div>
-          <div class="col-3">
-            <label for="categories" class="form-label">Categoria:</label>
-              <div *ngFor="let category of this.category; let i = index">
-                <input class="form-check-input" type="checkbox" id="flexCheckDefault"
-                  (change)="setCategory(i, $event)"
-                >
-                <label class="form-check-label" for="flexCheckDefault">{{category.name}}</label>
-              </div>
-          </div>
-          <div class="col-3">
-            <label for="priceGroups" class="form-label">Categoria de precificação:</label>
-            <select [(ngModel)]="price" [ngModelOptions]="{standalone: true}" name="flag" id="flag" class="form-select" (change)="setPriceGroup()" required>
-              <option [ngValue]="price" *ngFor="let price of this.priceGroups; let i = index">{{price.name}}</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-12">
-          <label for="manufacturer" class="form-label">Fabricante:</label>
-          <input
-            class="form-control"
-            type="text"
-            id="manufacturer"
-            placeholder="Produtos genéricos LTDA"
-          >
-        </div>
-        <div class="d-flex gap">
-          <button *ngIf="priceGroup.controls['cardFlagEdit'].value" class="btn btn-outline-success" (click)="updateProduct(priceGroup)">Salvar</button>
-          <button class="btn btn-outline-warning" (click)="editProduct(i)">Editar</button>
-          <button class="btn btn-outline-danger" (click)="deleteProduct(priceGroup)">Remover</button>
-        </div>
-      </section>
-    </form>
+  <ng-container *ngFor="let product of products">
+    <section class="mt-2 row">
+      <div class="col">{{product.name}}</div>
+      <div class="col">{{product.code}}</div>
+      <div class="d-flex justify-content-end gap-1 col">
+        <button class="btn btn-outline-warning" (click)="selectEditProduct(product)">Editar</button>
+        <button class="btn btn-outline-danger" (click)="deleteProduct(product)">Remover</button>
+      </div>
+    </section>
   </ng-container>
 </div>
 
