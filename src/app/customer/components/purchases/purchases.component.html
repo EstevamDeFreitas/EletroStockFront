@@ -1,1 +1,36 @@
-<p>purchases works!</p>
+<h2>Histórico de Compras</h2>
+<div>
+  <table class="table">
+    <thead>
+      <th scope="col">Nome do Produto</th>
+      <th scope="col">Data</th>
+      <th scope="col">Quantidade</th>
+      <th scope="col">Total</th>
+      <th scope="col">Status</th>
+      <th scope="col"></th>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let sale of sales">
+        <tr>
+          <td></td>
+          <td>{{sale.saleDate | date:'dd/MM/yyyy'}}</td>
+          <td></td>
+          <td>{{sale.total | currency:"BRL"}}</td>
+          <td>{{getValueFromStatus(sale.saleStatus)}}</td>
+          <td><button class="btn btn-danger">Solicitar Reembolso</button></td>
+        </tr>
+        <ng-container *ngFor="let product of sale.saleItems">
+          <tr>
+            <td>{{product.product.name}}</td>
+            <td></td>
+            <td>{{product.quantity}}</td>
+            <td>{{product.unitValue | currency:"BRL"}}</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr><td colspan="6"></td></tr>
+        </ng-container>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

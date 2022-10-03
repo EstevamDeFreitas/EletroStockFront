@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SaleService } from 'src/app/access/services/sale/sale.service';
+import { SaleDTO } from '../../models/saledto';
 
 @Component({
   selector: 'app-purchases',
@@ -7,9 +9,42 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PurchasesComponent implements OnInit {
 
-  constructor() { }
+  public sales : SaleDTO[] = [];
+
+  constructor(private saleService : SaleService) { }
 
   ngOnInit(): void {
+    this.getSales();
+  }
+
+  getSales(){
+    this.saleService.getCustomerSales().subscribe(res => {
+      this.sales = res.data;
+    })
+  }
+
+  getValueFromStatus(value:number){
+    let stringValue = '';
+
+    switch(value){
+      case 0 :
+        stringValue = 'Em Análise';
+        break;
+      case 1 :
+        stringValue = 'Pagamento Realizado';
+        break;
+      case 2 :
+        stringValue = 'Em Transporte';
+        break;
+      case 3 :
+        stringValue = 'Entrega Realizada';
+        break;
+      case 4 :
+        stringValue = 'Finalizado';
+        break;
+    }
+
+    return stringValue;
   }
 
 }
