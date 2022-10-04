@@ -2,6 +2,7 @@ import { environment } from '../../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { AdressDTO } from '../../models/adressDTO.model';
+import { Response } from './../../models/response';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class AddressService {
   constructor(private http: HttpClient) { }
 
   getUserAdresses() {
-    return this.http.get<HttpResponse<AdressDTO[]>>(this.API + '/list');
+    return this.http.get<Response<AdressDTO[]>>(this.API + '/list');
   }
 
   getAddress(adressId: string) {

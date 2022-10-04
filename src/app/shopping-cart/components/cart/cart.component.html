@@ -1,29 +1,83 @@
-<div>
-  <h2>Meu Carrinho</h2>
-</div>
-<div class="row mt-5">
-  <div class="col-8">
-    <div class="d-flex justify-content-between bg-light p-3" *ngFor="let item of shoppingCart.shoppingCartItems">
-      <div>{{item.product.name}}</div>
-      <div>{{item.quantity}}</div>
-      <div>{{item.product.price | currency:"BRL"}}</div>
-    </div>
+<ng-container *ngIf="page === 'shoppingCart'">
+  <div>
+    <h2>Meu Carrinho</h2>
   </div>
-  <div class="col-4">
-    <div class="bg-light p-3">
-      <h3>Itens</h3>
-      <div class="row" *ngFor="let item of shoppingCart.shoppingCartItems">
-        <div class="col d-flex align-items-center">{{item.product.name}}</div>
-        <div class="col d-flex align-items-center">x{{item.quantity}}</div>
-        <div class="col d-flex align-items-center">{{(item.quantity * item.product.price) | currency:'BRL'}}</div>
+  <div class="row mt-5">
+    <div class="col-8">
+      <div class="d-flex justify-content-between bg-light p-3" *ngFor="let item of shoppingCart.shoppingCartItems">
+        <div>{{item.product.name}}</div>
+        <div>{{item.quantity}}</div>
+        <div>{{item.product.price | currency:"BRL"}}</div>
       </div>
-      <div class="mt-5">
-        <div class="d-flex justify-content-between">
-          <h3>Total</h3>
-          <h3>{{totalShoppingCartValue() | currency:'BRL'}}</h3>
+    </div>
+    <div class="col-4">
+      <div class="bg-light p-3">
+        <h3>Itens</h3>
+        <div class="row" *ngFor="let item of shoppingCart.shoppingCartItems; let i = index">
+          <div class="col d-flex align-items-center">{{item.product.name}}</div>
+          <div class="col d-flex align-items-center">x{{item.quantity}}</div>
+          <div class="col d-flex align-items-center">
+            <button class="btn" (click)="lessItem(i)"> - </button>
+            {{(item.quantity * item.product.price) | currency:'BRL'}}
+            <button class="btn" (click)="moreItem(i)"> + </button>
+          </div>
         </div>
-        <div class="row mt-1"><button class="btn btn-success btn-lg">Finalizar Compra</button></div>
+        <div class="mt-5">
+          <div class="d-flex justify-content-between">
+            <h3>Total</h3>
+            <h3>{{totalShoppingCartValue() | currency:'BRL'}}</h3>
+          </div>
+          <div class="row mt-1"><button class="btn btn-success btn-lg" (click)="startPurchase()">Finalizar Compra</button></div>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</ng-container>
+
+<ng-container *ngIf="page === 'Purchase'">
+  <div>
+    <h2>Confirmar compra:</h2>
+  </div>
+  <section class="mt-5">
+    <div>
+      <h3>Endereço de entrega:</h3>
+    </div>
+    <div *ngFor="let address of addressList; let i = index">
+      <div class="form-check mt-2">
+        <input class="form-check-input" type="checkbox" id="address" (click)="selected($event, i)">
+        <label class="form-check-label" for="address">
+          {{address.street}}, {{address.district}}, {{address.city}} - {{address.state}} {{address.cep}}
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section class="mt-5">
+    <div>
+      <h3>Cartão:</h3>
+    </div>
+    <div *ngFor="let creditCard of creditCardList; let i = index">
+      <div class="form-check mt-2">
+        <input class="form-check-input" type="checkbox" id="address" (click)="selected($event, i)">
+        <label class="form-check-label" for="address" mask="**** **** **** **000">
+          {{creditCard.cardNumber}}
+        </label>
+      </div>
+    </div>
+    <div class="col-4 d-flex mt-2">
+      <label class="form-label col-3" for="paymentValue">Valor pago:</label>
+      <input class="form-control col-4" id="paymentValue" type="text" placeholder="R$ 0000,00">
+    </div>
+
+    <section class="purchace-position">
+      <div class="col-4 d-flex justify-content-between">
+        <h3>Total</h3>
+        <h3>{{totalShoppingCartValue() | currency:'BRL'}}</h3>
+      </div>
+      <div class="col-4 mt-3">
+        <button class="btn btn-success btn-lg">Finalizar Compra</button>
+      </div>
+    </section>
+
+  </section>
+</ng-container>
