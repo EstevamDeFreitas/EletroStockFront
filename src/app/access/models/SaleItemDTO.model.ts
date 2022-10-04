@@ -1,12 +1,12 @@
 import { ProductDTO } from "./productDTO.model";
 
 export class SaleItemDTO {
+
   public saleId: string;
   public productId: string;
-  // public RefundStatus RefundStatus;
+  public refundStatus!: number;
   public unitValue: number;
-  //public uint Quantity;
-
+  public quantity!: number;
   public product: ProductDTO;
 
   constructor() {
