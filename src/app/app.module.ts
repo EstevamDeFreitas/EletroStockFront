@@ -27,6 +27,7 @@ import { DatePipe } from '@angular/common';
 import { AccessInterceptor } from './access/services/access/access.interceptor';
 import { ShoppingCartComponent } from './shopping-cart/components/shopping-cart/shopping-cart.component';
 import { CartComponent } from './shopping-cart/components/cart/cart.component';
+import { TransactionsComponent } from './adm/transactions/transactions/transactions.component';
 
 
 
@@ -49,6 +50,7 @@ import { CartComponent } from './shopping-cart/components/cart/cart.component';
     ProductComponent,
     ShoppingCartComponent,
     CartComponent,
+    TransactionsComponent,
   ],
   imports: [
     BrowserModule,

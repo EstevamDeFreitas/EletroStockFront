@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { SaleService } from 'src/app/access/services/sale/sale.service';
-import { SaleDTO } from '../../models/saledto';
+import { SaleDTO, SaleStatus } from 'src/app/customer/models/saledto';
 
 @Component({
-  selector: 'app-purchases',
-  templateUrl: './purchases.component.html',
-  styleUrls: ['./purchases.component.scss']
+  selector: 'app-transactions',
+  templateUrl: './transactions.component.html',
+  styleUrls: ['./transactions.component.scss']
 })
-export class PurchasesComponent implements OnInit {
+export class TransactionsComponent implements OnInit {
 
   public sales : SaleDTO[] = [];
 
   constructor(private saleService : SaleService) { }
 
   ngOnInit(): void {
-    this.getSales();
+    this.getAdminSales();
   }
 
-  getSales(){
-    this.saleService.getCustomerSales().subscribe(res => {
+  getAdminSales(){
+    this.saleService.getAllSales().subscribe(res => {
       this.sales = res.data;
     })
   }
@@ -45,6 +45,12 @@ export class PurchasesComponent implements OnInit {
     }
 
     return stringValue;
+  }
+
+  changeStatus(saleId : string, value:SaleStatus){
+    this.saleService.changeStatus(saleId, value).subscribe(res => {
+      this.getAdminSales();
+    })
   }
 
 }
