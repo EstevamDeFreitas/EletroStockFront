@@ -1,0 +1,16 @@
+<div class="d-flex flex-nowrap gap-3">
+  <ng-container *ngFor="let product of products">
+    <div class="card" style="width: 18rem;">
+      <img [src]="product.productImages[0]" alt="">
+      <div class="card-body">
+        <h5 class="card-title">{{product.name}}</h5>
+        <p class="card-text">{{product.description}}</p>
+      </div>
+      <p class="text-success">{{product.price | currency:"BRL"}}</p>
+      <div class="card-footer">
+        <button class="btn btn-success btn-sm" (click)="addToCart(product.id, 1)">Adicionar ao Carrinho</button>
+      </div>
+    </div>
+  </ng-container>
+</div>
+

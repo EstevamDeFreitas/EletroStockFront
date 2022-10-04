@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ShoppingCartDTO } from 'src/app/shopping-cart/models/shopping-cart';
+import { ShoppingCartAddDTO, ShoppingCartDTO } from 'src/app/shopping-cart/models/shopping-cart';
 import { environment } from 'src/environments/environment';
 import { Response } from '../../models/response';
 
@@ -16,5 +16,9 @@ export class ShoppingCartService {
 
   public getCustomerShoppingCart() : Observable<Response<ShoppingCartDTO>>{
     return this.http.get<any>(this.API);
+  }
+
+  public addToCart(product : ShoppingCartAddDTO){
+    return this.http.post<any>(this.API + '/add', product);
   }
 }

@@ -28,6 +28,7 @@ import { AccessInterceptor } from './access/services/access/access.interceptor';
 import { ShoppingCartComponent } from './shopping-cart/components/shopping-cart/shopping-cart.component';
 import { CartComponent } from './shopping-cart/components/cart/cart.component';
 import { TransactionsComponent } from './adm/transactions/transactions/transactions.component';
+import { ProductListingComponent } from './products/product-listing/product-listing.component';
 
 
 
@@ -51,6 +52,7 @@ import { TransactionsComponent } from './adm/transactions/transactions/transacti
     ShoppingCartComponent,
     CartComponent,
     TransactionsComponent,
+    ProductListingComponent,
   ],
   imports: [
     BrowserModule,
