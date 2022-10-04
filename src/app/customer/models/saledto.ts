@@ -1,4 +1,5 @@
 import { CreditCardDTO } from "src/app/access/models/creditCardDTO.model";
+import { CustomerDTO } from "src/app/access/models/custumerDTO.model";
 import { ProductDTO } from "src/app/access/models/productDTO.model";
 
 export class SaleDTO{
@@ -14,6 +15,7 @@ export class SaleDTO{
   saleItems : SaleItemDTO[] = [];
   salePayments : SalePaymentDTO[] = [];
   saleCoupons : SaleCouponDTO[] = [];
+  customer : CustomerDTO = new CustomerDTO();
 }
 
 export enum SaleStatus{

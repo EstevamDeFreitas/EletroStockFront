@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SaleDTO } from 'src/app/customer/models/saledto';
+import { SaleDTO, SaleStatus } from 'src/app/customer/models/saledto';
 import { environment } from 'src/environments/environment';
 import { Response } from '../../models/response';
 
@@ -19,5 +19,9 @@ export class SaleService {
 
   getAllSales(){
     return this.http.get<Response<SaleDTO[]>>(this.API + '/all');
+  }
+
+  changeStatus(saleId : string, value:SaleStatus){
+    return this.http.put<Response<SaleDTO[]>>(this.API+'/'+saleId+'?saleStatus='+value, undefined);
   }
 }
