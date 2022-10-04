@@ -8,20 +8,20 @@ export class SaleCreateDTO
   public customerCoupons!: ValueById[];
 
   constructor() {
-    this.shoppingCartId = '';
-    this.addressId = '';
+    this.shoppingCartId = '00000000-0000-0000-0000-000000000000';
+    this.addressId = '00000000-0000-0000-0000-000000000000';
     this.shipping = 0;
     this.creditCards = [];
   }
 }
 
-class ValueById
+export class ValueById
 {
   public id: string;
   public value: number;
 
   constructor() {
-    this.id = '';
+    this.id = '00000000-0000-0000-0000-000000000000';
     this.value = 0;
   }
 }

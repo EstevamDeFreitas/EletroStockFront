@@ -1,3 +1,4 @@
+import { SaleCreateDTO } from './../../models/SaleCreateDTO.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SaleDTO, SaleStatus } from 'src/app/customer/models/saledto';
@@ -12,6 +13,10 @@ export class SaleService {
   private readonly API = environment.API_URL + "/Sale";
 
   constructor(private http: HttpClient) { }
+
+  createCustomerSale(saleCreate: SaleCreateDTO){
+    return this.http.post<Response<any>>(this.API, saleCreate);
+  }
 
   getCustomerSales(){
     return this.http.get<Response<SaleDTO[]>>(this.API);

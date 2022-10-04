@@ -44,7 +44,7 @@
     </div>
     <div *ngFor="let address of addressList; let i = index">
       <div class="form-check mt-2">
-        <input class="form-check-input" type="checkbox" id="address" (click)="selected($event, i)">
+        <input class="form-check-input" type="checkbox" id="address" (click)="selected($event, i, 'address')">
         <label class="form-check-label" for="address">
           {{address.street}}, {{address.district}}, {{address.city}} - {{address.state}} {{address.cep}}
         </label>
@@ -58,15 +58,21 @@
     </div>
     <div *ngFor="let creditCard of creditCardList; let i = index">
       <div class="form-check mt-2">
-        <input class="form-check-input" type="checkbox" id="address" (click)="selected($event, i)">
-        <label class="form-check-label" for="address" mask="**** **** **** **000">
+        <input class="form-check-input" type="checkbox" id="address" (click)="selected($event, i, 'creditCard')">
+        <label class="form-check-label" for="address">
           {{creditCard.cardNumber}}
         </label>
       </div>
     </div>
     <div class="col-4 d-flex mt-2">
       <label class="form-label col-3" for="paymentValue">Valor pago:</label>
-      <input class="form-control col-4" id="paymentValue" type="text" placeholder="R$ 0000,00">
+      <input
+        [(ngModel)]="value"
+        class="form-control col-4"
+        id="paymentValue"
+        type="number"
+        placeholder="R$ 0000,00"
+        (change)="getValue(value)">
     </div>
 
     <section class="purchace-position">
@@ -75,7 +81,7 @@
         <h3>{{totalShoppingCartValue() | currency:'BRL'}}</h3>
       </div>
       <div class="col-4 mt-3">
-        <button class="btn btn-success btn-lg">Finalizar Compra</button>
+        <button class="btn btn-success btn-lg" (click)="createSale()">Finalizar Compra</button>
       </div>
     </section>
 
