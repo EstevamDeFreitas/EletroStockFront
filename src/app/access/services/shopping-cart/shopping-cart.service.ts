@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ShoppingCartAddDTO, ShoppingCartDTO } from 'src/app/shopping-cart/models/shopping-cart';
+import { ShoppingCartAddDTO, ShoppingCartDTO, ShoppingCartItemDTO } from 'src/app/shopping-cart/models/shopping-cart';
 import { environment } from 'src/environments/environment';
 import { Response } from '../../models/response';
 
@@ -20,5 +20,9 @@ export class ShoppingCartService {
 
   public addToCart(product : ShoppingCartAddDTO){
     return this.http.post<any>(this.API + '/add', product);
+  }
+
+  public updateShoppingCartItem(shoppingCardItem: ShoppingCartItemDTO ){
+    return this.http.put<Response<any>>(this.API, shoppingCardItem);
   }
 }

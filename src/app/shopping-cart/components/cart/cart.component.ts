@@ -6,7 +6,7 @@ import { AdressDTO } from './../../../access/models/adressDTO.model';
 import { AddressService } from './../../../access/services/address/address.service';
 import { Component, OnInit } from '@angular/core';
 import { ShoppingCartService } from 'src/app/access/services/shopping-cart/shopping-cart.service';
-import { ShoppingCartDTO } from '../../models/shopping-cart';
+import { ShoppingCartDTO, ShoppingCartItemDTO } from '../../models/shopping-cart';
 
 @Component({
   selector: 'cart',
@@ -48,15 +48,26 @@ export class CartComponent implements OnInit {
 
   createSale(){
     this.sale.shipping = 40;
+    this.sale.shoppingCartId = this.shoppingCart.id;
     this.saleService.createCustomerSale(this.sale).subscribe()
   }
 
   lessItem(i: number) {
     this.shoppingCart.shoppingCartItems[i].quantity -= 1;
+    this.shoppingCartService.updateShoppingCartItem(this.shoppingCart.shoppingCartItems[i]).subscribe(res => {
+      if(res.message ='Item Updated'){
+        this.getShoppingCartInfo();
+      }
+    });
   }
 
   moreItem(i: number) {
     this.shoppingCart.shoppingCartItems[i].quantity += 1;
+    this.shoppingCartService.updateShoppingCartItem(this.shoppingCart.shoppingCartItems[i]).subscribe(res => {
+      if(res.message ='Item Updated'){
+        this.getShoppingCartInfo();
+      }
+    });
   }
 
   startPurchase() {
