@@ -29,6 +29,7 @@ import { ShoppingCartComponent } from './shopping-cart/components/shopping-cart/
 import { CartComponent } from './shopping-cart/components/cart/cart.component';
 import { TransactionsComponent } from './adm/transactions/transactions/transactions.component';
 import { ProductListingComponent } from './products/product-listing/product-listing.component';
+import { StockComponent } from './products/stock/stock.component';
 
 
 
@@ -53,6 +54,7 @@ import { ProductListingComponent } from './products/product-listing/product-list
     CartComponent,
     TransactionsComponent,
     ProductListingComponent,
+    StockComponent,
   ],
   imports: [
     BrowserModule,

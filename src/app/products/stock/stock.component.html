@@ -1,0 +1,32 @@
+<div class="bg-white p-4 container w-100 h-100">
+  <ng-container>
+    <table>
+      <thead>
+        <tr>
+          <th class="col-2">Nome</th>
+          <th class="col-2">Código</th>
+          <th class="col-2">Quantidade em estoque</th>
+          <th class="col-2">Valot Total</th>
+          <th class="col-2">Custo Médio</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let stock of stockFormList">
+          <td>
+            <input
+            type="text"
+            id="sourceName"
+            formControlName="sourceName"
+            [ngClass]="stock.controls['addStock'].value? 'form-control': 'form-control-plaintext'">
+            {{ stock.controls["sourceName"].value }}
+          </td>
+          <td>{{ stock.controls["product"].value.code }}</td>
+          <td>{{ stock.controls["quantity"].value }}</td>
+          <td>{{ stock.controls["value"].value }}</td>
+          <td>{{ stock.controls["product"].value.price }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+</div>
