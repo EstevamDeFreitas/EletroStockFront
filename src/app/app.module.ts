@@ -21,7 +21,7 @@ import { AccountComponent } from './customer/components/account/account.componen
 import { DetailsComponent } from './customer/components/details/details.component';
 import { PurchasesComponent } from './customer/components/purchases/purchases.component';
 import { CuponsComponent } from './customer/components/cupons/cupons.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CustomValidators } from './shared/custom-validators';
 import { DatePipe } from '@angular/common';
 import { AccessInterceptor } from './access/services/access/access.interceptor';
@@ -29,6 +29,7 @@ import { ShoppingCartComponent } from './shopping-cart/components/shopping-cart/
 import { CartComponent } from './shopping-cart/components/cart/cart.component';
 import { TransactionsComponent } from './adm/transactions/transactions/transactions.component';
 import { ProductListingComponent } from './products/product-listing/product-listing.component';
+import { RefundModalComponent } from './customer/components/refund-modal/refund-modal.component';
 
 
 
@@ -53,6 +54,7 @@ import { ProductListingComponent } from './products/product-listing/product-list
     CartComponent,
     TransactionsComponent,
     ProductListingComponent,
+    RefundModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +65,7 @@ import { ProductListingComponent } from './products/product-listing/product-list
     HttpClientModule,
     RouterModule,
     NgCreditCardModule,
+    NgbModalModule,
     NgxMaskModule.forRoot(),
   ],
   providers: [

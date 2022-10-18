@@ -32,6 +32,7 @@ export class SaleItemDTO{
   refundStatus : RefundStatus = 0;
   unitValue : number = 0;
   quantity : number = 0;
+  isSelectedRefund : boolean = false;
 
   product : ProductDTO = new ProductDTO();
 }

@@ -10,6 +10,7 @@ import { SaleDTO } from '../../models/saledto';
 export class PurchasesComponent implements OnInit {
 
   public sales : SaleDTO[] = [];
+  public saleSelect : boolean[] = [];
 
   constructor(private saleService : SaleService) { }
 
@@ -20,6 +21,12 @@ export class PurchasesComponent implements OnInit {
   getSales(){
     this.saleService.getCustomerSales().subscribe(res => {
       this.sales = res.data;
+
+      this.saleSelect = [];
+
+      this.sales.forEach(x => {
+        this.saleSelect.push(true);
+      })
     })
   }
 
@@ -45,6 +52,10 @@ export class PurchasesComponent implements OnInit {
     }
 
     return stringValue;
+  }
+
+  requestRefund(){
+
   }
 
 }
