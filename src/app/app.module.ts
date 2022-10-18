@@ -21,7 +21,7 @@ import { AccountComponent } from './customer/components/account/account.componen
 import { DetailsComponent } from './customer/components/details/details.component';
 import { PurchasesComponent } from './customer/components/purchases/purchases.component';
 import { CuponsComponent } from './customer/components/cupons/cupons.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CustomValidators } from './shared/custom-validators';
 import { DatePipe } from '@angular/common';
 import { AccessInterceptor } from './access/services/access/access.interceptor';
@@ -65,6 +65,7 @@ import { StockComponent } from './products/stock/stock.component';
     HttpClientModule,
     RouterModule,
     NgCreditCardModule,
+    NgbModalModule,
     NgxMaskModule.forRoot(),
   ],
   providers: [
