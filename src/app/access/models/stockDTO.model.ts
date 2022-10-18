@@ -7,14 +7,12 @@ export class StockDTO {
   public quantity: number;
   public value: number;
   public inputDate: Date;
-  public product: ProductDTO;
 
   constructor() {
     this.productId = '';
-    this.sourceName = 'xablau';
-    this.quantity = 10;
-    this.value = 20;
+    this.sourceName = '';
+    this.quantity = 0;
+    this.value = 0;
     this.inputDate = new Date();
-    this.product = new ProductDTO();
   }
 }
