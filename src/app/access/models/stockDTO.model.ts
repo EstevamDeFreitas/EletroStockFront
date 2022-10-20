@@ -9,7 +9,7 @@ export class StockDTO {
   public inputDate: Date;
 
   constructor() {
-    this.productId = '';
+    this.productId = '00000000-0000-0000-0000-000000000000';
     this.sourceName = '';
     this.quantity = 0;
     this.value = 0;

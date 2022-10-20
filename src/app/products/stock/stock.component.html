@@ -1,20 +1,15 @@
 <div class="bg-white p-4 container w-100 h-100">
   <ng-container>
-    <div class="col-3" *ngIf="!addStock">
-      <button (click)="addStocks()" class="btn btn-outline-success mt-2">
-        Adicionar Estoque
-      </button>
-    </div>
-
     <section *ngIf="addStock">
       <form [formGroup]="stockForm">
         <div class="col-3">
           <label for="sourceName" class="form-label"><h4>Nome</h4></label>
           <input
             type="text"
-            class="form-control"
+            class="form-control-plaintext"
             id="sourceName"
             formControlName="sourceName"
+            readonly
           />
         </div>
         <div class="row mt-2">
@@ -55,7 +50,7 @@
       </form>
     </section>
 
-    <table class="mt-2">
+    <table class="w-100">
       <thead>
         <tr>
           <th class="col-4">Nome</th>
@@ -65,9 +60,14 @@
       </thead>
       <tbody class="mt-2">
         <tr *ngFor="let stock of stockFormList; let i = index">
-          <td>{{ stock.controls["sourceName"].value }}</td>
-          <td>{{ stock.controls["quantity"].value }}</td>
-          <td>{{ stock.controls["value"].value }}</td>
+          <td class="col-4">{{ stock.controls["sourceName"].value }}</td>
+          <td class="col-4">{{ stock.controls["quantity"].value }}</td>
+          <td class="col-4">{{ stock.controls["value"].value }}</td>
+          <td class="col-3" >
+            <button (click)="addStocks(i)" class="btn btn-outline-success mt-2">
+              Adicionar Estoque
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>

@@ -43,8 +43,8 @@ export class StockComponent implements OnInit {
     })
   }
 
-  addStocks(){
-    this.stockForm = this.createForm(new StockDTO());
+  addStocks(i: number){
+    this.stockForm = this.stockFormList[i];
     this.addStock = true;
   }
 
