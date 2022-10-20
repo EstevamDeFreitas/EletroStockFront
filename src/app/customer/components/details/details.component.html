@@ -88,9 +88,9 @@
 </div>
 
 <div class="mt-3 mb-3">
-  <div class="row">
+  <div class="d-flex justify-content-between">
     <h2 class="col-8">Endereços</h2>
-    <button class="btn btn-lg col-4" (click)="activateCreateAddress()">Adicionar</button>
+    <button class="btn btn-success col-2" (click)="activateCreateAddress()">Adicionar</button>
   </div>
   <div class="row">
     <ng-container *ngIf="(customer.addresses != undefined ? customer.addresses.length == 0 : true) && !isAddressCreating">
@@ -253,9 +253,9 @@
   </div>
 
   <div class="row mb-3">
-    <div class="row">
+    <div class="d-flex justify-content-between">
       <h2 class="col-8">Cartões</h2>
-      <button class="btn btn-lg col-4" (click)="activateCreateCreditCard()">Adicionar</button>
+      <button class="btn btn-success col-2" (click)="activateCreateCreditCard()">Adicionar</button>
     </div>
     <ng-container *ngIf="creditCard.length === 0 && !isCreditCardCreating">
       <div class="d-flex">
@@ -297,7 +297,7 @@
           </select>
         </div>
       </form>
-      <section class="w-50 mt-2">
+      <section class="w-50 mt-2 d-flex justify-content-center align-items-center">
         <div>
           <ng-credit-card [name]="formCreditCard.controls['name'].value" [number]="formCreditCard.controls['number'].value"
           [cvc]="formCreditCard.controls['cvc'].value" [expiry]="formCreditCard.controls['expiry'].value"></ng-credit-card>
@@ -312,7 +312,7 @@
     <ng-container>
       <section *ngIf="formCreditCards" >
         <div class="row mb-3 mt-2 mr-2" *ngFor="let card of formCreditCards; let i = index">
-          <div class="w-50">
+          <div class="w-50 d-flex justify-content-center align-items-center">
             <ng-credit-card [name]="card.controls['name'].value" [number]="card.controls['number'].value"
               [cvc]="card.controls['cvc'].value" [expiry]="card.controls['expiry'].value">
             </ng-credit-card>

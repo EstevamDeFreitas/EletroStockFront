@@ -1,7 +1,7 @@
 <div class="bg-white w-100 h-100 p-4" >
   <h2>Transações</h2>
-  <table class="table">
-    <thead>
+  <table class="table mt-4">
+    <thead class="divisor">
       <th>Data</th>
       <th>Cliente</th>
       <th>Tipo de Transação</th>
@@ -10,7 +10,7 @@
     </thead>
     <tbody>
       <ng-container *ngFor="let sale of sales">
-        <tr>
+        <tr class="divisor">
           <td>{{sale.saleDate | date:'dd/MM/yyyy'}}</td>
           <td>{{sale.customer.name}}</td>
           <td>Compra</td>
@@ -20,7 +20,6 @@
               <button class="btn btn-success" (click)="changeStatus(sale.id,sale.saleStatus + 1)">Autorizar</button>
               <button *ngIf="sale.saleStatus > 0" class="btn btn-danger" (click)="changeStatus(sale.id,sale.saleStatus - 1)">Rejeitar</button>
             </ng-container>
-
           </td>
         </tr>
       </ng-container>

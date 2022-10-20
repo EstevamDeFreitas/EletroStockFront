@@ -52,18 +52,18 @@
 
     <table class="w-100">
       <thead>
-        <tr>
+        <tr class="divisor">
           <th class="col-4">Nome</th>
           <th class="col-4">Quantidade em estoque</th>
           <th class="col-4">Valot Total</th>
         </tr>
       </thead>
       <tbody class="mt-2">
-        <tr *ngFor="let stock of stockFormList; let i = index">
+        <tr *ngFor="let stock of stockFormList; let i = index" class="divisor">
           <td class="col-4">{{ stock.controls["sourceName"].value }}</td>
           <td class="col-4">{{ stock.controls["quantity"].value }}</td>
           <td class="col-4">{{ stock.controls["value"].value }}</td>
-          <td class="col-3" >
+          <td class="col-3">
             <button (click)="addStocks(i)" class="btn btn-outline-success mt-2">
               Adicionar Estoque
             </button>

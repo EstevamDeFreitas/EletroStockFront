@@ -1,13 +1,14 @@
 <div class="vh-100">
   <nav class="navbar top-bar navbar-light bg-light">
-    <div class="container">
-      <!-- <img src="./../assets/EletroStock.svg"> -->
-      <div class="links">
+    <div class="logo">
+      <img src="./../assets/EletroStock.svg">
+    </div>
+    <div class="container justify-content-end">
+      <div class="links">       
         <a class="btn" routerLink="/stock">Estoque</a>
         <a class="btn" routerLink="/products">Productos</a>
         <a class="btn" routerLink="/transactions">Transações</a>
         <a class="btn" routerLink="/configuration">Configuração</a>
-
         <a class="btn" routerLink="">Início</a>
         <a class="btn" routerLink="/cart">Meu Carrinho</a>
         <div ngbDropdown class="d-inline-block">
@@ -25,6 +26,9 @@
       <router-outlet></router-outlet>
     </div>
   </div>
+  <!-- <nav class="navbar top-bar navbar-light bg-light"> -->
+    
+  <!-- </nav> -->
 </div>
 
 

@@ -18,6 +18,19 @@
 
 }
 
+
+.logo{
+  position: absolute;
+  width: 300px;
+
+  img{
+    width: 250px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-10%, 5%);
+  }
+}
+
 .dropdown-menu.show {
   background-color: #696969;
 }
