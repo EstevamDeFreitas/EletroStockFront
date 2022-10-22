@@ -57,3 +57,8 @@ export class SaleCouponDTO{
   saleId : string = '';
   discountValue : number = 0;
 }
+
+export class SaleItemSummaryDTO{
+  saleId : string = '';
+  productId : string = '';
+}

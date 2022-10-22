@@ -1,7 +1,7 @@
 import { SaleCreateDTO } from './../../models/SaleCreateDTO.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SaleDTO, SaleStatus } from 'src/app/customer/models/saledto';
+import { SaleDTO, SaleItemSummaryDTO, SaleStatus } from 'src/app/customer/models/saledto';
 import { environment } from 'src/environments/environment';
 import { Response } from '../../models/response';
 
@@ -28,5 +28,9 @@ export class SaleService {
 
   changeStatus(saleId : string, value:SaleStatus){
     return this.http.put<Response<SaleDTO[]>>(this.API+'/'+saleId+'?saleStatus='+value, undefined);
+  }
+
+  requestRefund(saleItems : SaleItemSummaryDTO[]){
+    return this.http.post<Response<any>>(this.API + '/refund', saleItems);
   }
 }

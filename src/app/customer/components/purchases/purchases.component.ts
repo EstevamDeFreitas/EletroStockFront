@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SaleService } from 'src/app/access/services/sale/sale.service';
-import { SaleDTO } from '../../models/saledto';
+import { SaleDTO, SaleItemDTO } from '../../models/saledto';
 
 @Component({
   selector: 'app-purchases',
@@ -54,8 +54,39 @@ export class PurchasesComponent implements OnInit {
     return stringValue;
   }
 
-  requestRefund(){
+  getValueFromRefundStatus(value : number){
+    let stringValue = '';
 
+    switch(value){
+      case 0 :
+        stringValue = '';
+        break;
+      case 1 :
+        stringValue = 'Reembolso Solicitado';
+        break;
+      case 2 :
+        stringValue = 'Reembolso Aprovado';
+        break;
+      case 3 :
+        stringValue = 'Reembolso Negado';
+        break;
+    }
+
+    return stringValue;
+  }
+
+  requestRefund(sale : SaleDTO){
+    let selectedProducts : SaleItemDTO[] = [];
+
+    sale.saleItems.forEach(item => {
+      if(item.isSelectedRefund){
+        selectedProducts.push(item);
+      }
+    });
+
+    this.saleService.requestRefund(selectedProducts).subscribe(res => {
+      this.getSales();
+    })
   }
 
 }

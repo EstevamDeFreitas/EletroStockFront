@@ -17,7 +17,7 @@
           <td></td>
           <td>{{sale.total | currency:"BRL"}}</td>
           <td>{{getValueFromStatus(sale.saleStatus)}}</td>
-          <td><button class="btn btn-danger">Solicitar Reembolso</button></td>
+          <td><button class="btn btn-danger" (click)="requestRefund(sale)">Solicitar Reembolso</button></td>
         </tr>
         <ng-container *ngFor="let product of sale.saleItems; let i = index">
           <tr>
@@ -25,9 +25,9 @@
             <td></td>
             <td>{{product.quantity}}</td>
             <td>{{product.unitValue | currency:"BRL"}}</td>
-            <td></td>
+            <td>{{getValueFromRefundStatus(product.refundStatus)}}</td>
             <td>
-              <input type="checkbox" class="form-check-input" [(ngModel)]="product.isSelectedRefund">
+              <input *ngIf="product.refundStatus == 0" type="checkbox" class="form-check-input" [(ngModel)]="product.isSelectedRefund">
             </td>
           </tr>
           <tr><td colspan="6"></td></tr>
