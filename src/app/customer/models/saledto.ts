@@ -23,7 +23,8 @@ export enum SaleStatus{
   paymentConfirmed,
   transporting,
   delivered,
-  finished
+  finished,
+  refundRequested
 }
 
 export class SaleItemDTO{

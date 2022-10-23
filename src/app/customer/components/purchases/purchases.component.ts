@@ -49,6 +49,9 @@ export class PurchasesComponent implements OnInit {
       case 4 :
         stringValue = 'Finalizado';
         break;
+      case 5:
+        stringValue = 'Reembolso Solicitado';
+        break;
     }
 
     return stringValue;

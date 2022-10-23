@@ -16,7 +16,7 @@
           <td>Compra</td>
           <td>{{getValueFromStatus(sale.saleStatus)}}</td>
           <td>
-            <ng-container *ngIf="sale.saleStatus != 4">
+            <ng-container *ngIf="sale.saleStatus < 4">
               <button class="btn btn-success" (click)="changeStatus(sale.id,sale.saleStatus + 1)">Autorizar</button>
               <button *ngIf="sale.saleStatus > 0" class="btn btn-danger" (click)="changeStatus(sale.id,sale.saleStatus - 1)">Rejeitar</button>
             </ng-container>
