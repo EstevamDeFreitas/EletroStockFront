@@ -1,0 +1,34 @@
+<div class="bg-white w-100 h-100 p-4">
+  <h2>Detalhe da Devolução</h2>
+  <table class="table mt-4">
+    <thead>
+      <th>Cliente</th>
+      <th>Produto</th>
+      <th>Valor Unitário</th>
+      <th>Quantidade</th>
+      <th>Status</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let item of sale.saleItems">
+        <tr>
+          <td>{{sale.customer.name}}</td>
+          <td>{{item.product.name}}</td>
+          <td>{{item.unitValue}}</td>
+          <td>{{item.quantity}}</td>
+          <td>{{getValueFromRefundStatus(item.refundStatus)}}</td>
+          <td>
+            <div *ngIf="item.refundStatus == 1">
+              <button class="btn btn-success me-3" (click)="changeRefundStatus(item, 2)">Aprovar</button>
+              <button class="btn btn-danger" (click)="changeRefundStatus(item, 4)">Rejeitar</button>
+            </div>
+            <div *ngIf="item.refundStatus == 2">
+              <button class="btn btn-success me-3" (click)="acceptInventory(item)">Adicionar no Estoque</button>
+              <button class="btn btn-danger" (click)="changeRefundStatus(item, 3)">Não adicionar no estoque</button>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

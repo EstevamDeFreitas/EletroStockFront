@@ -42,6 +42,7 @@ export enum RefundStatus{
   none,
   requested,
   refunded,
+  finalized,
   rejected
 }
 

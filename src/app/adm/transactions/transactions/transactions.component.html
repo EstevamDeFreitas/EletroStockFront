@@ -20,6 +20,9 @@
               <button class="btn btn-success" (click)="changeStatus(sale.id,sale.saleStatus + 1)">Autorizar</button>
               <button *ngIf="sale.saleStatus > 0" class="btn btn-danger" (click)="changeStatus(sale.id,sale.saleStatus - 1)">Rejeitar</button>
             </ng-container>
+            <ng-container *ngIf="sale.saleStatus == 5">
+              <a [routerLink]="'./'+sale.id" class="btn btn-success">Vizualizar items</a>
+            </ng-container >
           </td>
         </tr>
       </ng-container>

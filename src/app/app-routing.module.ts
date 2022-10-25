@@ -18,6 +18,7 @@ import { CartComponent } from './shopping-cart/components/cart/cart.component';
 import { TransactionsComponent } from './adm/transactions/transactions/transactions.component';
 import { ProductListingComponent } from './products/product-listing/product-listing.component';
 import { StockComponent } from './products/stock/stock.component';
+import { RefundDetailComponent } from './adm/transactions/refund-detail/refund-detail.component';
 
 const routes: Routes = [
   {path:'login', component:LoginComponent},
@@ -37,7 +38,11 @@ const routes: Routes = [
   {path:'products', component:ProductComponent},
   {path:'stock', component:StockComponent},
   {path:'cart', component:ShoppingCartComponent},
-  {path:'transactions', component:TransactionsComponent},
+  {path:'transactions', children:[
+    {path:'', component: TransactionsComponent},
+    {path:':id', component:RefundDetailComponent}
+  ]},
+  //{path:'transactions', component:TransactionsComponent},
   {path:'', component:ProductListingComponent}
 ];
 

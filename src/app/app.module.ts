@@ -30,6 +30,7 @@ import { CartComponent } from './shopping-cart/components/cart/cart.component';
 import { TransactionsComponent } from './adm/transactions/transactions/transactions.component';
 import { ProductListingComponent } from './products/product-listing/product-listing.component';
 import { StockComponent } from './products/stock/stock.component';
+import { RefundDetailComponent } from './adm/transactions/refund-detail/refund-detail.component';
 
 
 
@@ -55,6 +56,7 @@ import { StockComponent } from './products/stock/stock.component';
     TransactionsComponent,
     ProductListingComponent,
     StockComponent,
+    RefundDetailComponent,
   ],
   imports: [
     BrowserModule,
