@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CouponCustomerDTO } from 'src/app/access/models/cupomDTO';
+import { CouponService } from 'src/app/access/services/coupon/coupon.service';
 
 @Component({
   selector: 'app-cupons',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CuponsComponent implements OnInit {
 
-  constructor() { }
+  public cupons : CouponCustomerDTO[] = [];
+
+  constructor(private couponService :CouponService) { }
 
   ngOnInit(): void {
+    this.getCustomerCoupons();
+  }
+
+  getCustomerCoupons(){
+    this.couponService.getCustomerCoupons().subscribe(res => {
+      this.cupons = res.data;
+    })
   }
 
 }

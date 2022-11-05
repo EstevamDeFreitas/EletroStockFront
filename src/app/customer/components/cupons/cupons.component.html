@@ -1,1 +1,19 @@
-<p>cupons works!</p>
+<div>
+  <table class="w-100">
+    <thead>
+      <th>Nome do Cupom</th>
+      <th>Data de vencimento</th>
+      <th>Desconto</th>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let coupon of cupons">
+        <tr>
+          <td>{{coupon.coupon.name}}</td>
+          <td *ngIf="coupon.coupon.hasValidity">{{coupon.coupon.validity | date:'yyyy-MM-dd'}}</td>
+          <td *ngIf="!coupon.coupon.hasValidity">-------</td>
+          <td>{{coupon.valueRemaining | currency:'BRL'}}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
