@@ -20,10 +20,10 @@
             <label for="validity" class="form-label">Validade</label>
             <input
               class="form-control"
-              type="date"
+              type="text"
               id="validity"
               formControlName="validity"
-              placeholder="dd-mm-yyyy"
+              placeholder="yyyy-MM-dd"
             >
           </div>
           <div class="gap col-2">
@@ -81,10 +81,9 @@
             <label for="validity" class="form-label">Validade</label>
             <input
               [ngClass]="cumpom.controls['isCupomEdit'].value? 'form-control': 'form-control-plaintext'"
-              type="date"
+              type="text"
               id="validity"
               formControlName="validity"
-              placeholder="dd-mm-yyyy"
             >
           </div>
           <div class="gap col-2">

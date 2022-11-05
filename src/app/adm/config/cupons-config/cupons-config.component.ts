@@ -39,7 +39,7 @@ export class CuponsConfigComponent implements OnInit {
       id: [cupom.id],
       name: [cupom.name],
       couponType: [cupom.couponType],
-      validity: [cupom.validity],
+      validity: [new Date(cupom.validity).toISOString().split('T')[0]],
       hasValidity: [cupom.hasValidity],
       value: [cupom.value],
       isCupomEdit: [this.isCupomEdit],
@@ -56,7 +56,7 @@ export class CuponsConfigComponent implements OnInit {
     // this.cupom.id = formCupom.controls['id'].value;
     this.cupom.name = formCupom.controls['name'].value;
     this.cupom.couponType = formCupom.controls['couponType'].value;
-    this.cupom.validity = formCupom.controls['validity'].value;
+    this.cupom.validity = new Date(formCupom.controls['validity'].value);
     this.cupom.hasValidity = true;
     this.cupom.couponType = 1;
     this.cupom.value = formCupom.controls['value'].value;
@@ -79,6 +79,7 @@ export class CuponsConfigComponent implements OnInit {
     this.cupom.couponType = 1;
     this.cupom.hasValidity = true;
     this.cupom.value = formCupom.controls['value'].value;
+    this.cupom.validity = new Date(formCupom.controls['validity'].value);
 
     this.cupomService.updateCoupon(this.cupom).subscribe((res) => {
       if (res.message === 'Coupon Updated') {
