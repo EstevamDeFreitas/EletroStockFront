@@ -7,6 +7,8 @@ import { AddressService } from './../../../access/services/address/address.servi
 import { Component, OnInit } from '@angular/core';
 import { ShoppingCartService } from 'src/app/access/services/shopping-cart/shopping-cart.service';
 import { ShoppingCartDTO, ShoppingCartItemDTO } from '../../models/shopping-cart';
+import { CouponService } from 'src/app/access/services/coupon/coupon.service';
+import { CouponCustomerDTO } from 'src/app/access/models/cupomDTO';
 
 @Component({
   selector: 'cart',
@@ -23,11 +25,14 @@ export class CartComponent implements OnInit {
   public creditCardList :CreditCardDTO[] = []
   public page : string = "shoppingCart";
 
+  public cupons : CouponCustomerDTO[] = [];
+
   constructor(private shoppingCartService : ShoppingCartService, private addressService: AddressService,
-    private creditCardService: CreditCardService, private saleService: SaleService) { }
+    private creditCardService: CreditCardService, private saleService: SaleService, private couponService :CouponService) { }
 
   ngOnInit(): void {
     this.getShoppingCartInfo();
+    this.getCustomerCoupons();
   }
 
   getShoppingCartInfo() {
@@ -41,6 +46,10 @@ export class CartComponent implements OnInit {
 
     this.shoppingCart.shoppingCartItems.forEach(cart =>{
       total += cart.quantity * cart.product.price;
+    });
+
+    this.sale.customerCoupons.forEach(coupon => {
+      total -= coupon.value;
     });
 
     return total;
@@ -109,5 +118,32 @@ export class CartComponent implements OnInit {
         this.sale.creditCards.splice(index, 1);
       }
     }
+  }
+
+  selectCoupon(coupon : CouponCustomerDTO){
+    let index = this.sale.customerCoupons.findIndex(x => x.id == coupon.id);
+
+    if(index == -1){
+      let valueTemp = new ValueById();
+      valueTemp.id = coupon.id;
+      valueTemp.value = coupon.valueRemaining >= this.totalShoppingCartValue()?this.totalShoppingCartValue() : coupon.valueRemaining;
+
+      this.sale.customerCoupons.push(valueTemp);
+    }
+    else{
+      this.sale.customerCoupons.splice(index, 1);
+    }
+  }
+
+  isCouponSelected(couponId : string){
+    let index = this.sale.customerCoupons.findIndex(x => x.id == couponId);
+
+    return index >= 0;
+  }
+
+  getCustomerCoupons(){
+    this.couponService.getCustomerCoupons().subscribe(res => {
+      this.cupons = res.data;
+    })
   }
 }
