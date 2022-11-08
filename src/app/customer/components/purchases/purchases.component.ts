@@ -71,8 +71,12 @@ export class PurchasesComponent implements OnInit {
         stringValue = 'Reembolso Aprovado';
         break;
       case 3 :
-        stringValue = 'Reembolso Negado';
+        stringValue = 'Reembolso Finalizado';
         break;
+        case 4 :
+          stringValue = 'Reembolso Negado';
+          break;
+
     }
 
     return stringValue;
