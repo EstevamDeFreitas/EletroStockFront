@@ -31,6 +31,7 @@ import { TransactionsComponent } from './adm/transactions/transactions/transacti
 import { ProductListingComponent } from './products/product-listing/product-listing.component';
 import { StockComponent } from './products/stock/stock.component';
 import { RefundDetailComponent } from './adm/transactions/refund-detail/refund-detail.component';
+import { SaleSummaryComponent } from './adm/dashboard/components/sale-summary/sale-summary.component';
 
 
 
@@ -57,6 +58,7 @@ import { RefundDetailComponent } from './adm/transactions/refund-detail/refund-d
     ProductListingComponent,
     StockComponent,
     RefundDetailComponent,
+    SaleSummaryComponent,
   ],
   imports: [
     BrowserModule,

@@ -21,6 +21,7 @@
     "@angular/router": "~13.2.0",
     "@ng-bootstrap/ng-bootstrap": "^12.1.2",
     "@popperjs/core": "^2.10.2",
+    "@swimlane/ngx-charts": "^20.1.0",
     "angular-credit-card": "^0.1.4",
     "angular-credit-cards": "^3.1.9",
     "bootstrap": "^5.2.0",
