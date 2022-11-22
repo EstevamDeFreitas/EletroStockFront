@@ -19,6 +19,7 @@ import { TransactionsComponent } from './adm/transactions/transactions/transacti
 import { ProductListingComponent } from './products/product-listing/product-listing.component';
 import { StockComponent } from './products/stock/stock.component';
 import { RefundDetailComponent } from './adm/transactions/refund-detail/refund-detail.component';
+import { SaleSummaryComponent } from './adm/dashboard/components/sale-summary/sale-summary.component';
 
 const routes: Routes = [
   {path:'login', component:LoginComponent},
@@ -42,6 +43,7 @@ const routes: Routes = [
     {path:'', component: TransactionsComponent},
     {path:':id', component:RefundDetailComponent}
   ]},
+  {path:'summary', component:SaleSummaryComponent},
   //{path:'transactions', component:TransactionsComponent},
   {path:'', component:ProductListingComponent}
 ];

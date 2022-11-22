@@ -32,6 +32,7 @@ import { ProductListingComponent } from './products/product-listing/product-list
 import { StockComponent } from './products/stock/stock.component';
 import { RefundDetailComponent } from './adm/transactions/refund-detail/refund-detail.component';
 import { SaleSummaryComponent } from './adm/dashboard/components/sale-summary/sale-summary.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 
@@ -71,6 +72,7 @@ import { SaleSummaryComponent } from './adm/dashboard/components/sale-summary/sa
     NgCreditCardModule,
     NgbModalModule,
     NgxMaskModule.forRoot(),
+    NgApexchartsModule
   ],
   providers: [
     HttpClientModule,
