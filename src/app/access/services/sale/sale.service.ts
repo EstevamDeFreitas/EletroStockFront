@@ -45,4 +45,8 @@ export class SaleService {
   acceptInventory(saleItem : SaleItemSummaryDTO){
     return this.http.put<any>(this.API + '/refund/inventory', saleItem);
   }
+
+  getSaleSummary(startDate : string | null, endDate : string | null, productCode : string | null, isQuantity : boolean){
+    return this.http.get<any>(`${this.API}/summary?${(startDate != null? 'startDate=' + startDate : '')}${(endDate != null? '&endDate=' + endDate : '')}${(productCode != null? '&productCode=' + productCode : '')}&isQuantity=${isQuantity}`);
+  }
 }
