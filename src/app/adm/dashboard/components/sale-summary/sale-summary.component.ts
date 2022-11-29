@@ -65,6 +65,8 @@ export class SaleSummaryComponent implements OnInit {
   public saleSummary !: SaleSummaryDTO;
 
   ngOnInit(): void {
+    this.startDate = '2022-01-01';
+    this.endDate = '2022-12-31';
     this.getChartInfo(null, null, null);
   }
 
